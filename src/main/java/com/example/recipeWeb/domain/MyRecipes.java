@@ -20,13 +20,14 @@ public class MyRecipes {
     @Column(name = "add_date", nullable = false)
     private Date addDate;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="member_id")
     private Member member;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
-    public MyRecipes(Member member, Recipe recipe) {
-        this.member = member;
-        this.recipe = recipe;
-        this.addDate = new Date((new java.util.Date()).getTime());
-    }
+    //
+
 }
