@@ -24,8 +24,7 @@ public class MyRecipes {
 
     private Recipe recipe;
 
-    public MyRecipes(int id, Member member, Recipe recipe) {
-        this.id = id;
+    public MyRecipes(Member member, Recipe recipe) {
         this.member = member;
         this.recipe = recipe;
         this.addDate = new Date((new java.util.Date()).getTime());
