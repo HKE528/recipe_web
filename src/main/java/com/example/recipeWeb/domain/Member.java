@@ -1,15 +1,20 @@
 package com.example.recipeWeb.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 import java.util.List;
 
 @Entity
 @Getter
+@Table(name = "tb_member")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -27,7 +32,7 @@ public class Member {
 
     @Column(nullable = false)
     private Date joindate;
-    
+
     private List<MyRecipes> myRecipes;
 
     public Member(String id, String pw, String name, String email) {
