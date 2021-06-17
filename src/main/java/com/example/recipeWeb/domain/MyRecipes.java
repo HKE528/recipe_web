@@ -21,7 +21,7 @@ public class MyRecipes {
     @Column(name = "add_date", nullable = false)
     private LocalDate addDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member;
 
