@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -18,7 +19,7 @@ public class MyRecipes {
     private int id;
 
     @Column(name = "add_date", nullable = false)
-    private Date addDate;
+    private LocalDate addDate;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="member_id")
@@ -28,6 +29,15 @@ public class MyRecipes {
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
-    //
+    public MyRecipes(Member member, Recipe recipe) {
+        this.member = member;
+        this.recipe = recipe;
+        addDate = LocalDate.now();
+    }
 
+    //==연관 관계 메서드==//
+    public void setMember(Member member) {
+        this.member = member;
+        member.getMyRecipes().add(this);
+    }
 }
