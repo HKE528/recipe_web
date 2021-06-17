@@ -39,5 +39,6 @@ public class Member {
         this.pw = pw;
         this.name = name.isEmpty()? id : name;
         this.email = email;
+        joindate = LocalDate.now();
     }
 }
