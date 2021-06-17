@@ -1,5 +1,6 @@
 package com.example.recipeWeb.domain;
 
+import com.example.recipeWeb.DTO.MemberDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,5 +41,12 @@ public class Member {
         this.name = name.isEmpty()? id : name;
         this.email = email;
         joindate = LocalDate.now();
+    }
+
+    public Member(MemberDTO memberDTO) {
+        this.id = memberDTO.getId();
+        this.pw = memberDTO.getPw();
+        this.name = memberDTO.getName().isEmpty()? memberDTO.getId() : memberDTO.getName();
+        this.email = memberDTO.getEmail();
     }
 }
