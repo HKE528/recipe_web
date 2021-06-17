@@ -22,6 +22,8 @@ public class MemberService {
         validateDupMember(memberDTO.getId());
         Member member = new Member(memberDTO);
 
+        memberRepository.save(member);
+
         return memberDTO.getId();
     }
 
@@ -43,7 +45,7 @@ public class MemberService {
     public void validateDupMember(String id) {
         Member member = memberRepository.findOne(id);
 
-        if(member == null) {
+        if(member != null) {
             throw new DupIdException("이미 존재하는 아이디 입니다.");
         }
     }
