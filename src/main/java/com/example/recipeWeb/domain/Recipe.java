@@ -1,5 +1,6 @@
 package com.example.recipeWeb.domain;
 
+import com.example.recipeWeb.DTO.RecipeDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,5 +49,12 @@ public class Recipe {
         this.category = category;
         this.ingredient = ingredient;
         this.description = description;
+    }
+
+    public Recipe(RecipeDTO dto) {
+        this.name = dto.getName();
+        this.category = dto.getCategory();
+        this.ingredient = dto.getIngredient();
+        this.description = dto.getDescription();
     }
 }
