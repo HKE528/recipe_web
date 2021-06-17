@@ -30,8 +30,8 @@ public class MyRecipes {
     private Recipe recipe;
 
     public MyRecipes(Member member, Recipe recipe) {
-        this.member = member;
         this.recipe = recipe;
+        setMember(member);
         addDate = LocalDate.now();
     }
 
