@@ -1,6 +1,7 @@
 package com.example.recipeWeb.service;
 
 import com.example.recipeWeb.DTO.MemberDTO;
+import com.example.recipeWeb.DTO.MyRecipesDTO;
 import com.example.recipeWeb.DTO.RecipeDTO;
 import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.MyRecipes;
@@ -31,5 +32,18 @@ public class MyRecipeService {
         myRecipeRepository.save(myRecipes);
 
         return myRecipes.getId();
+    }
+
+    public MyRecipesDTO findMyRecipe(int id) {
+        MyRecipes myRecipes = myRecipeRepository.findOne(id);
+
+        MyRecipesDTO myRecipesDTO = new MyRecipesDTO(
+                myRecipes.getId(),
+                myRecipes.getAddDate(),
+                myRecipes.getMember(),
+                myRecipes.getRecipe()
+        );
+
+        return myRecipesDTO;
     }
 }
