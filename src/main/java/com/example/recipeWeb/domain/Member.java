@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class Member {
     private LocalDate joindate;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MyRecipes> myRecipes;
+    private final List<MyRecipes> myRecipes = new ArrayList<>();
 
     public Member(String id, String pw, String name, String email) {
         this.id = id;
