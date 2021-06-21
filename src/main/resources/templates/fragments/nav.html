@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="nav">
+
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Recipe Store</a>
+      <a class="navbar-brand" href="/">Recipe Store</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,13 +22,19 @@
           </li>
         </ul>
 
-        <form class="d-flex" action="/member/login" method="get">
-          <button class="btn btn-outline-success" type="submit">Login</button>
-        </form>
+        <th:block th:if="${member == null}">
+          <form class="d-flex" action="/member/login" method="get">
+            <button class="btn btn-outline-success" type="submit">Login</button>
+          </form>
+        </th:block>
+        <th:block th:unless="${member == null}">
+          <a href="#" th:text="${member.name}" th:href="@{/member/{id}/myPage (id=${member.id})}" class="btn btn-success" role="button">수정</a>
+        </th:block>
 
       </div>
 
     </div>
   </nav>
+
 </header>
 </html>
