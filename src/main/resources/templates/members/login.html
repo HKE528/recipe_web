@@ -29,6 +29,10 @@
           font-size: 3.5rem;
         }
       }
+
+      .jb-red {
+        color: red;
+      }
     </style>
 
   <!-- Custom styles for this template -->
@@ -50,6 +54,7 @@
       <label for="floatingPassword">Password</label>
     </div>
 
+    <p class="jb-red" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Incorrect date</p>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
   </form>

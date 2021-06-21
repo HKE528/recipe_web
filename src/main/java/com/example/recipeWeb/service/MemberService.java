@@ -46,7 +46,7 @@ public class MemberService {
             memberDTO = generateDTO(member);
 
         } catch (EmptyResultDataAccessException e) {
-            memberDTO = new MemberDTO(null);
+            memberDTO = null;
         }
 
         return memberDTO;
