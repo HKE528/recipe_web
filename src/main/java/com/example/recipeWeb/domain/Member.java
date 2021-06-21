@@ -51,4 +51,12 @@ public class Member {
         this.email = memberDTO.getEmail();
         joindate = LocalDate.now();
     }
+
+    public void changeInfo(String pw, String name, String email) {
+        if(pw != null && !pw.isEmpty()) {
+            this.pw = pw;
+        }
+        this.name = name;
+        this.email = email;
+    }
 }

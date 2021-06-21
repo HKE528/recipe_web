@@ -81,7 +81,7 @@ public class MemberController {
                          RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("id", id);
 
-        memberService.updateMember(id, memberDTO.getPw(), memberDTO.getName(), memberDTO.getEmail());
+        memberService.updateMember(id, memberDTO);
 
         return "redirect:/";
     }

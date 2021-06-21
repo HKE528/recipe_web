@@ -52,6 +52,13 @@ public class MemberService {
         return memberDTO;
     }
 
+    @Transactional
+    public void updateMember(String id, MemberDTO memberDTO){
+        Member findMember = memberRepository.findOne(id);
+
+        findMember.changeInfo(memberDTO.getPw(), memberDTO.getName(), memberDTO.getEmail());
+    }
+
     private MemberDTO generateDTO(Member member) {
         return new MemberDTO(
                 member.getId(),
