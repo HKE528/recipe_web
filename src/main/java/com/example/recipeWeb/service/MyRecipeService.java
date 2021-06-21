@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MyRecipeService {
     private final MyRecipeRepository myRecipeRepository;
@@ -22,6 +22,7 @@ public class MyRecipeService {
     private final MemberRepository memberRepository;
     private final RecipeService recipeService;
 
+    @Transactional
     public int createMyRecipe(String memberId, RecipeDTO recipeDTO) {
         int recipeId = recipeService.saveRecipe(recipeDTO);
         Recipe recipe = recipeRepository.findOne(recipeId);

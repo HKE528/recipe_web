@@ -18,6 +18,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     //회원가입
+    @Transactional
     public String join(MemberDTO memberDTO) {
         validateDupMember(memberDTO.getId());
         Member member = new Member(memberDTO);
