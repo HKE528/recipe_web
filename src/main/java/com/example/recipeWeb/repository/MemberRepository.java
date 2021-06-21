@@ -20,6 +20,13 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
+    public Member findOne(String id, String pw) {
+        return em.createQuery("select m from Member m where id = :id and pw = :pw", Member.class)
+                .setParameter("id", id)
+                .setParameter("pw", pw)
+                .getSingleResult();
+    }
+
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
