@@ -86,7 +86,7 @@ body {
 <br><br><br>
 
 <div class="signup-form">
-  <form action="/member/update" method="post" th:object="${member}">
+  <form th:action="@{/member/{id}/myPage (id=${member.id}) }" method="post" th:object="${member}">
     <h2>내 정보</h2>
     <div class="form-group">
       <input type="text" class="form-control" th:field="*{id}" placeholder="ID" disabled>
