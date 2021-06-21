@@ -49,5 +49,6 @@ public class Member {
         this.pw = memberDTO.getPw();
         this.name = memberDTO.getName().isEmpty()? memberDTO.getId() : memberDTO.getName();
         this.email = memberDTO.getEmail();
+        joindate = LocalDate.now();
     }
 }
