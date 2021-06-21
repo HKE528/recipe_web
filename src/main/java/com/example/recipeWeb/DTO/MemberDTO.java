@@ -6,10 +6,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberDTO {
+
     private String id;
     private String pw;
     private String name;
     private String email;
+
+    public MemberDTO(String id) {
+        this.id = id;
+    }
 
     public MemberDTO() {
 
