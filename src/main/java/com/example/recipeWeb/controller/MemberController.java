@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class MemberController {
     }
 
     @PostMapping("member/login")
-    public String login(LoginDTO dto, BindingResult result) {
+    public String login(LoginDTO dto, BindingResult result, RedirectAttributes redirect) {
         MemberDTO memberDTO = memberService.findOneWithPw(dto.getId(), dto.getPw());
 
         if(memberDTO == null) {
@@ -34,6 +35,7 @@ public class MemberController {
             return "members/login";
         }
 
+        redirect.addAttribute("id", memberDTO.getId());
         return "redirect:/";
     }
 
