@@ -72,6 +72,23 @@ public class MemberServiceTest {
         fail("중복아이디 예외가 발생해야 함");
     }
 
+    @Test
+    public void 회원_정보_수정() {
+        //given
+        MemberDTO mem1 = generateMemberDTO("test");
+        String id = memberService.join(mem1);
+
+        String name = "after";
+        MemberDTO mem2 = generateMemberDTO(id, name);
+
+        //when
+        memberService.updateMember(id, mem2);
+
+        //then
+        MemberDTO result = memberService.findOne(id);
+        assertEquals(name, result.getName());
+    }
+
     private MemberDTO generateMemberDTO() {
         return new MemberDTO(
                 "testId", "testPw", "testName", "testEmail"
@@ -81,6 +98,12 @@ public class MemberServiceTest {
     private MemberDTO generateMemberDTO(String id) {
         return new MemberDTO(
                 id, "testPw", "testName", "testEmail"
+        );
+    }
+
+    private MemberDTO generateMemberDTO(String id, String name) {
+        return new MemberDTO(
+                id, "testPw", name, "testEmail"
         );
     }
 }
