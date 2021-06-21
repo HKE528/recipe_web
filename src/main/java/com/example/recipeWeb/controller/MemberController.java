@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -63,4 +65,25 @@ public class MemberController {
 
         return action;
     }
+
+    @GetMapping("member/{memberId}/myPage")
+    public String myPageForm(@PathVariable("memberId") String id, Model model) {
+        MemberDTO memberDTO = memberService.findOne(id);
+
+        model.addAttribute("member", memberDTO);
+
+        return "members/myPage";
+    }
+
+    @PostMapping("member/{memberId}/myPage")
+    public String myPage(@PathVariable("memberId") String id,
+                         @ModelAttribute("form") MemberDTO memberDTO,
+                         RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", id);
+
+        memberService.updateMember(id, memberDTO.getPw(), memberDTO.getName(), memberDTO.getEmail());
+
+        return "redirect:/";
+    }
+
 }
