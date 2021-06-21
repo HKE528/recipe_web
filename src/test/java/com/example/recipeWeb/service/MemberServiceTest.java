@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,32 @@ public class MemberServiceTest {
         //then
         MemberDTO result = memberService.findOne(id);
         assertEquals(mem1.getId(), result.getId());
+    }
+
+    @Test
+    public void 로그인_테스트() {
+        //given
+        MemberDTO mem1 = generateMemberDTO();
+
+        //when
+        String id = memberService.join(mem1);
+
+        //then
+        MemberDTO result = memberService.findOneWithPw(id, mem1.getPw());
+        assertEquals(mem1.getId(), result.getId());
+    }
+
+    @Test
+    public void 로그인_실패_테스트() {
+        //given
+        MemberDTO mem1 = generateMemberDTO();
+
+        //when
+        String id = memberService.join(mem1);
+
+        //then
+        MemberDTO result = memberService.findOneWithPw("qwer", mem1.getPw());
+        assertEquals(result.getId(), null);
     }
 
     @Test(expected = DupIdException.class)

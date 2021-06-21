@@ -6,6 +6,7 @@ import com.example.recipeWeb.exception.DupIdException;
 import com.example.recipeWeb.repository.MemberRepository;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,18 +33,36 @@ public class MemberService {
     public MemberDTO findOne(String id) {
         Member member = memberRepository.findOne(id);
 
-        MemberDTO memberDTO = new MemberDTO(
+        MemberDTO memberDTO = generateDTO(member);
+
+        return memberDTO;
+    }
+
+    public MemberDTO findOneWithPw(String id, String pw) {
+        MemberDTO memberDTO = null;
+
+        try{
+            Member member = memberRepository.findOne(id, pw);
+            memberDTO = generateDTO(member);
+
+        } catch (EmptyResultDataAccessException e) {
+            memberDTO = new MemberDTO(null);
+        }
+
+        return memberDTO;
+    }
+
+    private MemberDTO generateDTO(Member member) {
+        return new MemberDTO(
                 member.getId(),
                 member.getPw(),
                 member.getName(),
                 member.getEmail()
         );
-
-        return memberDTO;
     }
 
     //아이디 중복 체크
-    public void validateDupMember(String id) {
+    private void validateDupMember(String id) {
         Member member = memberRepository.findOne(id);
 
         if(member != null) {
