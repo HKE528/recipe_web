@@ -1,6 +1,7 @@
 package com.example.recipeWeb.controller;
 
 import com.example.recipeWeb.DTO.MemberDTO;
+import com.example.recipeWeb.exception.DupIdException;
 import com.example.recipeWeb.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,24 @@ public class HomeController {
 
         model.addAttribute("member", memberDTO);
 
+        generateTestData();
+
         return "home";
+    }
+
+    private void generateTestData() {
+        MemberDTO memberDTO = new MemberDTO(
+                "test",
+                "test",
+                "test",
+                "test@test,com"
+        );
+
+        try{
+            memberService.join(memberDTO);
+            System.out.println("테스트 데이터 생성");
+        } catch (DupIdException e) {
+            return;
+        }
     }
 }
