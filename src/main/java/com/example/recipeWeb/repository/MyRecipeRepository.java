@@ -22,7 +22,7 @@ public class MyRecipeRepository {
     }
 
     public List<MyRecipes> findAll(Member member) {
-        return em.createQuery("select mr from MyRecipes mr where member = :member", MyRecipes.class)
+        return em.createQuery("select mr from MyRecipes mr where mr.member = :member", MyRecipes.class)
                 .setParameter("member", member)
                 .getResultList();
     }
