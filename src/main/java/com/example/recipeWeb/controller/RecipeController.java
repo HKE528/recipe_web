@@ -1,6 +1,7 @@
 package com.example.recipeWeb.controller;
 
 import com.example.recipeWeb.DTO.MemberDTO;
+import com.example.recipeWeb.DTO.MyRecipesDTO;
 import com.example.recipeWeb.DTO.RecipeDTO;
 import com.example.recipeWeb.service.MemberService;
 import com.example.recipeWeb.service.MyRecipeService;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -26,9 +30,17 @@ public class RecipeController {
 
     @GetMapping("recipe/{memberId}/my")
     public String myRecipe(@Nullable @PathVariable("memberId") String memberId, Model model) {
+        List<MyRecipesDTO> allMyRecipe = myRecipeService.findAllMyRecipe(memberId);
+
         MemberDTO memberDTO = memberService.findOne(memberId);
 
+        List<RecipeDTO> recipeList = new ArrayList<>();
+        for(MyRecipesDTO dto : allMyRecipe) {
+            recipeList.add(dto.getRecipeDTO());
+        }
+
         model.addAttribute("member", memberDTO);
+        model.addAttribute("recipes", recipeList);
 
         return "recipe/myRecipe";
     }
