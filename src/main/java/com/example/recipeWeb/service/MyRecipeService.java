@@ -41,12 +41,7 @@ public class MyRecipeService {
     public MyRecipesDTO findMyRecipe(int id) {
         MyRecipes myRecipes = myRecipeRepository.findOne(id);
 
-        MyRecipesDTO myRecipesDTO = new MyRecipesDTO(
-                myRecipes.getId(),
-                myRecipes.getAddDate(),
-                myRecipes.getMember(),
-                myRecipes.getRecipe()
-        );
+        MyRecipesDTO myRecipesDTO = MyRecipesDTO.createDTO(myRecipes);
 
         return myRecipesDTO;
     }
@@ -57,7 +52,7 @@ public class MyRecipeService {
 
         List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
         for(MyRecipes myRecipe : myRecipes) {
-            MyRecipesDTO dto = new MyRecipesDTO(myRecipe);
+            MyRecipesDTO dto = MyRecipesDTO.createDTO(myRecipe);
 
             myRecipesDTO.add(dto);
         }
