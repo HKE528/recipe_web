@@ -89,6 +89,20 @@ public class MemberServiceTest {
         assertEquals(name, result.getName());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void 회원_삭제_테스트() {
+        //given
+        MemberDTO mem1 = generateMemberDTO("test");
+        String id = memberService.join(mem1);
+
+        //when
+        memberService.deleteMember(id);
+        MemberDTO result = memberService.findOne(id);
+        
+        //then
+        fail("NullPointerException이 발생해야 합니다");
+    }
+
     private MemberDTO generateMemberDTO() {
         return new MemberDTO(
                 "testId", "testPw", "testName", "testEmail"
