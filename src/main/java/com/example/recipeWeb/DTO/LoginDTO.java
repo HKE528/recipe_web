@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class LoginDTO {
 
-    @NotNull
     private String id;
     private String pw;
 }
