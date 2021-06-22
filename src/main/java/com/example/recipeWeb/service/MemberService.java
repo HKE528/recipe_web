@@ -59,6 +59,15 @@ public class MemberService {
         findMember.changeInfo(memberDTO.getPw(), memberDTO.getName(), memberDTO.getEmail());
     }
 
+    @Transactional
+    public void deleteMember(String id){
+        Member findMember = memberRepository.findOne(id);
+
+        if(findMember != null) {
+            memberRepository.delete(findMember);
+        }
+    }
+
     private MemberDTO generateDTO(Member member) {
         return new MemberDTO(
                 member.getId(),
