@@ -17,6 +17,10 @@ public class RecipeDTO {
     private String description;
     private boolean shared = false;
 
+    public RecipeDTO() {
+
+    }
+
     public RecipeDTO(String name, Category category, String ingredient, String description) {
         this.name = name;
         this.category = category;
