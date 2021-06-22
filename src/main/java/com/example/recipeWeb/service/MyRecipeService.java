@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -44,6 +47,20 @@ public class MyRecipeService {
                 myRecipes.getMember(),
                 myRecipes.getRecipe()
         );
+
+        return myRecipesDTO;
+    }
+
+    public List<MyRecipesDTO> findAllMyRecipe(String id) {
+        Member member = memberRepository.findOne(id);
+        List<MyRecipes> myRecipes = myRecipeRepository.findAll(member);
+
+        List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
+        for(MyRecipes myRecipe : myRecipes) {
+            MyRecipesDTO dto = new MyRecipesDTO(myRecipe);
+
+            myRecipesDTO.add(dto);
+        }
 
         return myRecipesDTO;
     }
