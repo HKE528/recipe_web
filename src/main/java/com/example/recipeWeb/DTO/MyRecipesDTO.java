@@ -13,8 +13,8 @@ import java.time.LocalDate;
 public class MyRecipesDTO {
     private int id;
     private LocalDate addDate;
-    private Member member;
-    private Recipe recipe;
+    private MemberDTO memberDTO;
+    private RecipeDTO recipeDTO;
 
     public MyRecipesDTO() {
     }
@@ -24,17 +24,20 @@ public class MyRecipesDTO {
         this.addDate = addDate;
     }
 
-    public MyRecipesDTO(int id, LocalDate addDate, Member member, Recipe recipe) {
+    public MyRecipesDTO(int id, LocalDate addDate, MemberDTO memberDTO, RecipeDTO recipeDTO) {
         this.id = id;
         this.addDate = addDate;
-        this.member = member;
-        this.recipe = recipe;
+        this.memberDTO = memberDTO;
+        this.recipeDTO = recipeDTO;
     }
 
-    public MyRecipesDTO(MyRecipes myRecipes) {
-        this.id = myRecipes.getId();
-        this.addDate = myRecipes.getAddDate();
-        this.member = myRecipes.getMember();
-        this.recipe = myRecipes.getRecipe();
+    public static MyRecipesDTO createDTO(MyRecipes myRecipes){
+        return new MyRecipesDTO(
+                myRecipes.getId(),
+                myRecipes.getAddDate(),
+                MemberDTO.createDTO(myRecipes.getMember()),
+                RecipeDTO.createDTO(myRecipes.getRecipe())
+        );
     }
+
 }

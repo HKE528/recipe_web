@@ -1,5 +1,6 @@
 package com.example.recipeWeb.DTO;
 
+import com.example.recipeWeb.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +26,14 @@ public class MemberDTO {
         this.pw = pw;
         this.name = name;
         this.email = email;
+    }
+
+    public static MemberDTO createDTO(Member member) {
+        return new MemberDTO(
+                member.getId(),
+                member.getPw(),
+                member.getName(),
+                member.getEmail()
+        );
     }
 }

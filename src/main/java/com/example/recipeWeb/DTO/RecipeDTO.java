@@ -1,6 +1,7 @@
 package com.example.recipeWeb.DTO;
 
 import com.example.recipeWeb.domain.Category;
+import com.example.recipeWeb.domain.Recipe;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,5 +35,14 @@ public class RecipeDTO {
         this.ingredient = ingredient;
         this.description = description;
         this.shared = shared;
+    }
+
+    public static RecipeDTO createDTO(Recipe recipe){
+        return new RecipeDTO(
+                recipe.getName(),
+                recipe.getCategory(),
+                recipe.getIngredient(),
+                recipe.getDescription()
+        );
     }
 }
