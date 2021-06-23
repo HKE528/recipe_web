@@ -33,6 +33,9 @@ public class Recipe {
     @Column(length = 5000)
     private String description;
 
+    @Column(length = 100)
+    private String comment;
+
     @Column(nullable = false)
     private boolean shared = false;
 
@@ -51,10 +54,19 @@ public class Recipe {
         this.description = description;
     }
 
+    public Recipe(String name, Category category, String ingredient, String description, String comment) {
+        this.name = name;
+        this.category = category;
+        this.ingredient = ingredient;
+        this.description = description;
+        this.comment = comment;
+    }
+
     public Recipe(RecipeDTO dto) {
         this.name = dto.getName();
         this.category = dto.getCategory();
         this.ingredient = dto.getIngredient();
         this.description = dto.getDescription();
+        this.comment = dto.getComment();
     }
 }
