@@ -42,6 +42,35 @@ public class MyRecipeServiceTest {
 
     }
 
+    @Test
+    public void 레시피_카테고리별_로딩_테스트() {
+        //given
+        MemberDTO mem1 = generateMemberDTO();
+        String memId = memberService.join(mem1);
+
+        RecipeDTO recipe1 = generateRecipeDTO(Category.KOREAN);
+        RecipeDTO recipe2 = generateRecipeDTO(Category.OTHERS);
+        RecipeDTO recipe3 = generateRecipeDTO(Category.JAPANESE);
+
+        //when
+        int ko = myRecipeService.createMyRecipe(memId, recipe1);
+        int oh = myRecipeService.createMyRecipe(memId, recipe2);
+        int jp = myRecipeService.createMyRecipe(memId, recipe3);
+
+        MyRecipesDTO koDTO1 = myRecipeService.findMyRecipe(ko);
+        MyRecipesDTO ohDTO1 = myRecipeService.findMyRecipe(oh);
+        MyRecipesDTO jpDTO1 = myRecipeService.findMyRecipe(jp);
+
+        //then
+        List<MyRecipesDTO> result1 = myRecipeService.findAllMyRecipeByCategory(memId, Category.KOREAN);
+        List<MyRecipesDTO> result2 = myRecipeService.findAllMyRecipeByCategory(memId, Category.OTHERS);
+        List<MyRecipesDTO> result3 = myRecipeService.findAllMyRecipeByCategory(memId, Category.JAPANESE);
+
+        assertEquals(koDTO1.getId(), result1.get(0).getId());
+        assertEquals(ohDTO1.getId(), result2.get(0).getId());
+        assertEquals(jpDTO1.getId(), result3.get(0).getId());
+    }
+
     private MemberDTO generateMemberDTO() {
         return new MemberDTO(
                 "testId", "testPw", "testName", "testEmail"
@@ -50,5 +79,9 @@ public class MyRecipeServiceTest {
 
     private RecipeDTO generateRecipeDTO() {
         return new RecipeDTO("testName", Category.KOREAN, "testtest", "testteststest");
+    }
+
+    private RecipeDTO generateRecipeDTO(Category category) {
+        return new RecipeDTO("testName", category, "testtest", "testteststest");
     }
 }
