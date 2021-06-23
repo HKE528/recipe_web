@@ -106,4 +106,17 @@ public class MyRecipeController {
 
         return "recipe/myRecipe";
     }
+
+    @GetMapping("/recipe/{memberId}/view/{myRecipeId}")
+    public String showRecipe(
+            @PathVariable("memberId") String memberId,
+            @PathVariable("myRecipeId") int myRecipeId,
+            Model model) {
+        MemberDTO memberDTO = memberService.findOne(memberId);
+        MyRecipesDTO myRecipeDTO = myRecipeService.findMyRecipe(myRecipeId);
+
+        model.addAttribute("member", memberDTO);
+
+        return "recipe/showRecipe";
+    }
 }

@@ -11,7 +11,7 @@
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
         <div class="card-body" style="height: 145px;">
           <h3 class="card-title">
-            <a href="#" th:text="${item.recipeDTO.name}">Item Name</a>
+            <a th:href="@{/recipe/{memberId}/view/{id} (memberId=${item.memberDTO.id}, id=${item.id})}" th:text="${item.recipeDTO.name}">Item Name</a>
           </h3>
           <h5 th:text="${item.recipeDTO.category}">Category</h5>
           <!--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>-->
