@@ -36,4 +36,11 @@ public class RecipeService {
 
         return recipeDTO;
     }
+
+    @Transactional
+    public void deleteRecipe(int id) {
+        Recipe recipe = recipeRepository.findOne(id);
+
+        recipeRepository.deleteOne(recipe);
+    }
 }

@@ -19,4 +19,8 @@ public class RecipeRepository {
     public Recipe findOne(int id) {
         return em.find(Recipe.class, id);
     }
+
+    public void deleteOne(Recipe recipe) {
+        em.remove(recipe);
+    }
 }

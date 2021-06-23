@@ -59,4 +59,11 @@ public class MyRecipeService {
 
         return myRecipesDTO;
     }
+
+    @Transactional
+    public void deleteMyRecipe(int id) {
+        MyRecipes myRecipes = myRecipeRepository.findOne(id);
+
+        myRecipeRepository.deleteOne(myRecipes);
+    }
 }

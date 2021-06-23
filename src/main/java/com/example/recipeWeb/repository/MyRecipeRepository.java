@@ -27,4 +27,8 @@ public class MyRecipeRepository {
                 .getResultList();
     }
 
+    public void deleteOne(MyRecipes myRecipes) {
+        em.remove(myRecipes);
+    }
+
 }

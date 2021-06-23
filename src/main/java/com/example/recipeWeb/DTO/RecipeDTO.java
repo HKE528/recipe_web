@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class RecipeDTO {
+    private int id;
     private String name;
     private Category category;
     private String ingredient;
@@ -50,7 +51,8 @@ public class RecipeDTO {
         this.shared = shared;
     }
 
-    public RecipeDTO(String name, Category category, String ingredient, String description, String comment, boolean shared) {
+    public RecipeDTO(int id, String name, Category category, String ingredient, String description, String comment, boolean shared) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.ingredient = ingredient;
@@ -61,6 +63,7 @@ public class RecipeDTO {
 
     public static RecipeDTO createDTO(Recipe recipe){
         return new RecipeDTO(
+                recipe.getId(),
                 recipe.getName(),
                 recipe.getCategory(),
                 recipe.getIngredient(),

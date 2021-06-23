@@ -7,6 +7,7 @@ import com.example.recipeWeb.service.MemberService;
 import com.example.recipeWeb.service.MyRecipeService;
 import com.example.recipeWeb.service.RecipeService;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.PackagePrivate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,9 @@ public class RecipeController {
     @GetMapping("recipe/{memberId}/my")
     public String myRecipe(@Nullable @PathVariable("memberId") String memberId, Model model) {
         List<MyRecipesDTO> allMyRecipe = myRecipeService.findAllMyRecipe(memberId);
-
         MemberDTO memberDTO = memberService.findOne(memberId);
+
+/*        MemberDTO memberDTO = memberService.findOne(memberId);
 
         List<RecipeDTO> recipeList = new ArrayList<>();
         for(MyRecipesDTO dto : allMyRecipe) {
@@ -42,7 +44,10 @@ public class RecipeController {
         }
 
         model.addAttribute("member", memberDTO);
-        model.addAttribute("recipes", recipeList);
+        model.addAttribute("recipes", recipeList);*/
+
+        model.addAttribute("myRecipes", allMyRecipe);
+        model.addAttribute("member", memberDTO);
 
         return "recipe/myRecipe";
     }
@@ -69,5 +74,14 @@ public class RecipeController {
         int myRecipe = myRecipeService.createMyRecipe(memberId, recipeDTO);
 
         return "redirect:/recipe/"+ memberId + "/my";
+    }
+
+    @GetMapping("recipe/{memberId}/my/delete/{myRecipeId}")
+    public String delete(
+            @PathVariable("memberId") String memberId,
+            @PathVariable("myRecipeId") int myRecipeId) {
+        myRecipeService.deleteMyRecipe(myRecipeId);
+
+        return "redirect:/recipe/" + memberId + "/my";
     }
 }
