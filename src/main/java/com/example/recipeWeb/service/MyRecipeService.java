@@ -3,6 +3,7 @@ package com.example.recipeWeb.service;
 import com.example.recipeWeb.DTO.MemberDTO;
 import com.example.recipeWeb.DTO.MyRecipesDTO;
 import com.example.recipeWeb.DTO.RecipeDTO;
+import com.example.recipeWeb.domain.Category;
 import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.MyRecipes;
 import com.example.recipeWeb.domain.Recipe;
@@ -49,6 +50,20 @@ public class MyRecipeService {
     public List<MyRecipesDTO> findAllMyRecipe(String id) {
         Member member = memberRepository.findOne(id);
         List<MyRecipes> myRecipes = myRecipeRepository.findAll(member);
+
+        List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
+        for(MyRecipes myRecipe : myRecipes) {
+            MyRecipesDTO dto = MyRecipesDTO.createDTO(myRecipe);
+
+            myRecipesDTO.add(dto);
+        }
+
+        return myRecipesDTO;
+    }
+
+    public List<MyRecipesDTO> findAllMyRecipeByCategory(String id, Category category) {
+        Member member = memberRepository.findOne(id);
+        List<MyRecipes> myRecipes = myRecipeRepository.findByCategory(member, category);
 
         List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
         for(MyRecipes myRecipe : myRecipes) {
