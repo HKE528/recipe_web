@@ -25,12 +25,14 @@ public class RecipeService {
     public RecipeDTO loadRecipe(int id) {
         Recipe recipe = recipeRepository.findOne(id);
 
-        RecipeDTO recipeDTO = new RecipeDTO(
+        /*RecipeDTO recipeDTO = new RecipeDTO(
                 recipe.getName(),
                 recipe.getCategory(),
                 recipe.getIngredient(),
                 recipe.getDescription()
-        );
+        );*/
+
+        RecipeDTO recipeDTO = RecipeDTO.createDTO(recipe);
 
         return recipeDTO;
     }
