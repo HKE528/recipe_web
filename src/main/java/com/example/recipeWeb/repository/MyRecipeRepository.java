@@ -1,5 +1,6 @@
 package com.example.recipeWeb.repository;
 
+import com.example.recipeWeb.domain.Category;
 import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.MyRecipes;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,14 @@ public class MyRecipeRepository {
     public List<MyRecipes> findAll(Member member) {
         return em.createQuery("select mr from MyRecipes mr where mr.member = :member", MyRecipes.class)
                 .setParameter("member", member)
+                .getResultList();
+    }
+
+    public List<MyRecipes> findByCategory(Member member, Category category) {
+        return em.createQuery("select mr from MyRecipes mr" +
+                " where mr.member = :member and mr.recipe.category = :category", MyRecipes.class)
+                .setParameter("member", member)
+                .setParameter("category", category)
                 .getResultList();
     }
 
