@@ -11,12 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +50,22 @@ public class RecipeController {
     @GetMapping("recipe/{memberId}/my/add")
     public String addRecipe(@PathVariable("memberId") String memberId, Model model) {
         model.addAttribute("id", memberId);
+        model.addAttribute("recipeDTO", new RecipeDTO());
 
         return "recipe/addRecipeForm";
     }
 
     @PostMapping("recipe/{memberId}/my/add")
-    public String add(@PathVariable("memberId") String memberId, @ModelAttribute("form")RecipeDTO recipeDTO) {
+    public String add(@PathVariable("memberId") String memberId,
+                      @Valid RecipeDTO recipeDTO,
+                      BindingResult result,
+                      Model model) {
+        if(result.hasErrors()) {
+            model.addAttribute("id", memberId);
+
+            return "recipe/addRecipeForm";
+        }
+
         int myRecipe = myRecipeService.createMyRecipe(memberId, recipeDTO);
 
         return "redirect:/recipe/"+ memberId + "/my";

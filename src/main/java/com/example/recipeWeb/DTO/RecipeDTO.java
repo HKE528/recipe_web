@@ -18,8 +18,9 @@ public class RecipeDTO {
     private String ingredient;
     private String description;
 
-    @Size(max = 100, message = "내용이 너무 길어요!")
+    @Size(max = 40, message = "내용이 너무 길어요!")
     private String comment;
+
     private boolean shared = false;
 
     public RecipeDTO() {
