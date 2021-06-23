@@ -51,12 +51,7 @@ public class MyRecipeService {
         Member member = memberRepository.findOne(id);
         List<MyRecipes> myRecipes = myRecipeRepository.findAll(member);
 
-        List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
-        for(MyRecipes myRecipe : myRecipes) {
-            MyRecipesDTO dto = MyRecipesDTO.createDTO(myRecipe);
-
-            myRecipesDTO.add(dto);
-        }
+        List<MyRecipesDTO> myRecipesDTO = generateDtoList(myRecipes);
 
         return myRecipesDTO;
     }
@@ -65,12 +60,7 @@ public class MyRecipeService {
         Member member = memberRepository.findOne(id);
         List<MyRecipes> myRecipes = myRecipeRepository.findByCategory(member, category);
 
-        List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
-        for(MyRecipes myRecipe : myRecipes) {
-            MyRecipesDTO dto = MyRecipesDTO.createDTO(myRecipe);
-
-            myRecipesDTO.add(dto);
-        }
+        List<MyRecipesDTO> myRecipesDTO = generateDtoList(myRecipes);
 
         return myRecipesDTO;
     }
@@ -81,4 +71,16 @@ public class MyRecipeService {
 
         myRecipeRepository.deleteOne(myRecipes);
     }
+
+    private List<MyRecipesDTO> generateDtoList(List<MyRecipes> myRecipes) {
+        List<MyRecipesDTO> myRecipesDTO = new ArrayList<>();
+        for(MyRecipes myRecipe : myRecipes) {
+            MyRecipesDTO dto = MyRecipesDTO.createDTO(myRecipe);
+
+            myRecipesDTO.add(dto);
+        }
+
+        return myRecipesDTO;
+    }
+
 }
