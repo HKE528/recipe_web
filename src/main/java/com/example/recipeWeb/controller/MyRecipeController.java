@@ -27,7 +27,7 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class RecipeController {
+public class MyRecipeController {
     private final RecipeService recipeService;
     private final MemberService memberService;
     private final MyRecipeService myRecipeService;
