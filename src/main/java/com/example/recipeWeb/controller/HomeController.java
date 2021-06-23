@@ -1,8 +1,11 @@
 package com.example.recipeWeb.controller;
 
 import com.example.recipeWeb.DTO.MemberDTO;
+import com.example.recipeWeb.DTO.RecipeDTO;
+import com.example.recipeWeb.domain.Category;
 import com.example.recipeWeb.exception.DupIdException;
 import com.example.recipeWeb.service.MemberService;
+import com.example.recipeWeb.service.MyRecipeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class HomeController {
     private final MemberService memberService;
+    private final MyRecipeService myRecipeService;
 
     @RequestMapping("/")
     public String home(@RequestParam("id") @Nullable String id, Model model) {
@@ -45,9 +49,18 @@ public class HomeController {
                 "test",
                 "test@test,com"
         );
+        RecipeDTO recipeDTO = new RecipeDTO(
+                "test",
+                Category.KOREAN,
+                "test",
+                "etst",
+                "test"
+        );
 
         try{
             memberService.join(memberDTO);
+            myRecipeService.createMyRecipe(memberDTO.getId(), recipeDTO);
+
             System.out.println("테스트 데이터 생성");
         } catch (DupIdException e) {
             return;
