@@ -3,6 +3,7 @@ package com.example.recipeWeb.controller;
 import com.example.recipeWeb.DTO.MemberDTO;
 import com.example.recipeWeb.DTO.MyRecipesDTO;
 import com.example.recipeWeb.DTO.RecipeDTO;
+import com.example.recipeWeb.domain.Category;
 import com.example.recipeWeb.service.MemberService;
 import com.example.recipeWeb.service.MyRecipeService;
 import com.example.recipeWeb.service.RecipeService;
@@ -83,5 +84,26 @@ public class RecipeController {
         myRecipeService.deleteMyRecipe(myRecipeId);
 
         return "redirect:/recipe/" + memberId + "/my";
+    }
+
+    @GetMapping("recipe/{memberId}/my/{cate}")
+    public String showCategory(@PathVariable("memberId") String memberId,
+                               @PathVariable("cate") String cate,
+                               Model model) {
+        Category category = switch (cate) {
+            case "ko" -> Category.KOREAN;
+            case "jp" -> Category.JAPANESE;
+            case "ch" -> Category.CHINESE;
+            case "we" -> Category.WESTERN;
+            default -> Category.OTHERS;
+        };
+
+        List<MyRecipesDTO> myRecipesDTO = myRecipeService.findAllMyRecipeByCategory(memberId, category);
+        MemberDTO memberDTO = memberService.findOne(memberId);
+
+        model.addAttribute("myRecipes", myRecipesDTO);
+        model.addAttribute("member", memberDTO);
+
+        return "recipe/myRecipe";
     }
 }
