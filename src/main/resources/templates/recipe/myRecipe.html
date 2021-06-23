@@ -19,12 +19,12 @@
       <h1 class="my-4">내 레시피</h1>
 
       <div class="list-group pb-3">
-        <a href="#" class="list-group-item">전체</a>
-        <a href="#" class="list-group-item">한식</a>
-        <a href="#" class="list-group-item">일식</a>
-        <a href="#" class="list-group-item">중식</a>
-        <a href="#" class="list-group-item">양식</a>
-        <a href="#" class="list-group-item">기타</a>
+        <a th:href="@{/recipe/{id}/my (id=${member.id})}" class="list-group-item">전체</a>
+        <a th:href="@{/recipe/{id}/my/{cate} (id=${member.id}, cate='ko')}" class="list-group-item">한식</a>
+        <a th:href="@{/recipe/{id}/my/{cate} (id=${member.id}, cate='jp')}" class="list-group-item">일식</a>
+        <a th:href="@{/recipe/{id}/my/{cate} (id=${member.id}, cate='ch')}" class="list-group-item">중식</a>
+        <a th:href="@{/recipe/{id}/my/{cate} (id=${member.id}, cate='we')}" class="list-group-item">양식</a>
+        <a th:href="@{/recipe/{id}/my/{cate} (id=${member.id}, cate='ot')}" class="list-group-item">기타</a>
 
         <a th:href="@{/recipe/{id}/my/add (id=${member.id})}" class="btn btn-success btn-lg" style="width: 300px; margin: auto; margin-top: 10px;">+</a>
       </div>
