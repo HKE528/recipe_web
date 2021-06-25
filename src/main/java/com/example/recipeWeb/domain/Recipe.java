@@ -63,6 +63,10 @@ public class Recipe {
     }
 
     public Recipe(RecipeDTO dto) {
+        changData(dto);
+    }
+
+    public void changData(RecipeDTO dto) {
         this.name = dto.getName();
         this.category = dto.getCategory();
         this.ingredient = dto.getIngredient();

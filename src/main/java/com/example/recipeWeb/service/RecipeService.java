@@ -43,4 +43,11 @@ public class RecipeService {
 
         recipeRepository.deleteOne(recipe);
     }
+
+    @Transactional
+    public void updateRecipe(RecipeDTO recipeDTO) {
+        Recipe findRecipe = recipeRepository.findOne(recipeDTO.getId());
+
+        findRecipe.changData(recipeDTO);
+    }
 }
