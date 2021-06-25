@@ -4,6 +4,7 @@ import com.example.recipeWeb.DTO.MemberDTO;
 import com.example.recipeWeb.DTO.MyRecipesDTO;
 import com.example.recipeWeb.DTO.RecipeDTO;
 import com.example.recipeWeb.domain.Category;
+import com.example.recipeWeb.exception.NotExistRecipe;
 import com.example.recipeWeb.service.MemberService;
 import com.example.recipeWeb.service.MyRecipeService;
 import com.example.recipeWeb.service.RecipeService;
@@ -122,5 +123,39 @@ public class MyRecipeController {
         model.addAttribute("nlString", nlString);
 
         return "recipe/showMyRecipe";
+    }
+
+    @GetMapping("/recipe/{memberId}/edit/{myRecipeId}")
+    public String editRecipeForm(
+            @PathVariable("memberId") String memberId,
+            @PathVariable("myRecipeId") int myRecipeId,
+            Model model) {
+
+        MyRecipesDTO myRecipeDTO = myRecipeService.findMyRecipe(myRecipeId);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("myRecipeId", myRecipeId);
+        model.addAttribute("myRecipe", myRecipeDTO.getRecipeDTO());
+
+        return "recipe/editRecipeForm";
+    }
+
+    @PostMapping("/recipe/{memberId}/edit/{myRecipeId}")
+    public String add(
+            @PathVariable("memberId") String memberId,
+            @PathVariable("myRecipeId") int myRecipeId,
+            @Valid RecipeDTO recipeDTO,
+            BindingResult result,
+            Model model) {
+
+        if(result.hasErrors()) {
+            model.addAttribute("memberId", memberId);
+            model.addAttribute("myRecipeId", myRecipeId);
+
+            return "recipe/editRecipeForm";
+        }
+
+        recipeService.updateRecipe(recipeDTO);
+
+        return "redirect:/recipe/" + memberId + "/view/" + myRecipeId;
     }
 }
