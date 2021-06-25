@@ -31,7 +31,29 @@ public class RecipeServiceTest {
 
     }
 
+    @Test
+    public void 레시피_수정_테스트() {
+        //given
+        RecipeDTO dto = generateDTO();
+        String chName = "changName";
+
+        //when
+        int id = recipeService.saveRecipe(dto);
+        RecipeDTO find = recipeService.loadRecipe(id);
+
+        find.setName(chName);
+        recipeService.updateRecipe(find);
+
+        //then
+        RecipeDTO result = recipeService.loadRecipe(id);
+        assertEquals(chName, result.getName());
+    }
+
     private RecipeDTO generateDTO() {
         return new RecipeDTO("testName", Category.KOREAN, "testtest", "testteststest");
+    }
+
+    private RecipeDTO generateDTO(String name) {
+        return new RecipeDTO(name, Category.KOREAN, "testtest", "testteststest");
     }
 }
