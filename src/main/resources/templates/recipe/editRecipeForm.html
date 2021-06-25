@@ -19,7 +19,8 @@
 <div class="container">
   <div class="col-lg-6 p-4 center-block border border-info" style="margin: auto; background-color: #BDBDBD;" >
     <h2 class="pb-3"> 레시피 수정 </h2>
-    <form th:action="@{/recipe/{memberId}/edit/{myRecipeId} (memberId=${id})}" th:object="${recipeDTO}" method="post">
+    <form th:action="@{/recipe/{memberId}/edit/{myRecipeId} (memberId=${memberId}, myRecipeId=${myRecipeId})}"
+          th:object="${recipeDTO}" method="post">
     <div class="form-group mt-2">
       <label th:for="name">요리 명</label>
       <input type="text" class="form-control" th:field="*{name}" placeholder="요리명을 입력하세요." required="required">

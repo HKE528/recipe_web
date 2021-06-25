@@ -134,7 +134,7 @@ public class MyRecipeController {
         MyRecipesDTO myRecipeDTO = myRecipeService.findMyRecipe(myRecipeId);
         model.addAttribute("memberId", memberId);
         model.addAttribute("myRecipeId", myRecipeId);
-        model.addAttribute("myRecipe", myRecipeDTO.getRecipeDTO());
+        model.addAttribute("recipeDTO", myRecipeDTO.getRecipeDTO());
 
         return "recipe/editRecipeForm";
     }
@@ -154,6 +154,8 @@ public class MyRecipeController {
             return "recipe/editRecipeForm";
         }
 
+        int id = myRecipeService.findMyRecipe(myRecipeId).getRecipeDTO().getId();
+        recipeDTO.setId(id);
         recipeService.updateRecipe(recipeDTO);
 
         return "redirect:/recipe/" + memberId + "/view/" + myRecipeId;
