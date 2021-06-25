@@ -112,11 +112,15 @@ public class MyRecipeController {
             @PathVariable("memberId") String memberId,
             @PathVariable("myRecipeId") int myRecipeId,
             Model model) {
-        MemberDTO memberDTO = memberService.findOne(memberId);
+        //MemberDTO memberDTO = memberService.findOne(memberId);
         MyRecipesDTO myRecipeDTO = myRecipeService.findMyRecipe(myRecipeId);
 
-        model.addAttribute("member", memberDTO);
+        //model.addAttribute("member", memberDTO);
+        model.addAttribute("myRecipe", myRecipeDTO);
 
-        return "recipe/showRecipe";
+        String nlString = System.getProperty("line.separator").toString();
+        model.addAttribute("nlString", nlString);
+
+        return "recipe/showMyRecipe";
     }
 }
