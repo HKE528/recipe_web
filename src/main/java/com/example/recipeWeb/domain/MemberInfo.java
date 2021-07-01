@@ -1,5 +1,6 @@
 package com.example.recipeWeb.domain;
 
+import com.example.recipeWeb.domain.dto.MemberDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -25,4 +26,28 @@ public class MemberInfo {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     Member member;
+
+    public MemberInfo() {
+    }
+
+    public MemberInfo(String nickname, String email, LocalDate joindate) {
+        this.nickname = nickname;
+        this.email = email;
+        this.joindate = joindate;
+    }
+
+    public static MemberInfo createMemberInfo(MemberDTO dto) {
+        MemberInfo memberInfo = new MemberInfo(
+                dto.getNickname(),
+                dto.getEmail(),
+                dto.getJoinDate()
+        );
+
+        return memberInfo;
+    }
+
+    public void changeData(String nickname, String email) {
+        this.nickname = nickname;
+        this.email = email;
+    }
 }

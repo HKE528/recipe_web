@@ -21,12 +21,20 @@ public class Role {
     private RoleEnum name;
 
     @ManyToMany(mappedBy = "roles")
-    List<Member> users = new ArrayList<>();
+    List<Member> members = new ArrayList<>();
 
     public Role() {
     }
 
     public Role(RoleEnum name) {
         this.name = name;
+    }
+
+    public static Role createUserRole() {
+        return new Role(RoleEnum.ROLE_USER);
+    }
+
+    public static Role createAdminRole() {
+        return new Role(RoleEnum.ROLE_ADMIN);
     }
 }
