@@ -19,6 +19,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    @Transactional
     public void joinMember(MemberDTO dto) throws DuplicateMemberException {
         if(checkIsDup(dto.getUsername())) {
             throw new DuplicateMemberException("중복된 Username");
@@ -40,12 +41,14 @@ public class MemberService {
         return memberDTO;
     }
 
+    @Transactional
     public void updateMember(MemberDTO dto) {
         Member member = memberRepository.findByUsername(dto.getUsername()).orElseThrow(NoSuchElementException::new);
 
         member.changeData(dto);
     }
 
+    @Transactional
     public void deleteMember(String username) {
         Member member = memberRepository.findByUsername(username).orElseThrow(NoSuchElementException::new);
 
