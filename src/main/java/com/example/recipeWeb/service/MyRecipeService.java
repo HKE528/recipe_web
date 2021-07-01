@@ -1,15 +1,9 @@
 package com.example.recipeWeb.service;
 
-import com.example.recipeWeb.DTO.MemberDTO;
-import com.example.recipeWeb.DTO.MyRecipesDTO;
-import com.example.recipeWeb.DTO.RecipeDTO;
-import com.example.recipeWeb.domain.Category;
-import com.example.recipeWeb.domain.Member;
-import com.example.recipeWeb.domain.MyRecipes;
-import com.example.recipeWeb.domain.Recipe;
-import com.example.recipeWeb.repository.MemberRepository;
-import com.example.recipeWeb.repository.MyRecipeRepository;
-import com.example.recipeWeb.repository.RecipeRepository;
+import com.example.recipeWeb.domain.enums.CategoryEnum;
+import com.example.recipeWeb.domain.temp.Member;
+import com.example.recipeWeb.domain.temp.MyRecipes;
+import com.example.recipeWeb.domain.temp.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +50,7 @@ public class MyRecipeService {
         return myRecipesDTO;
     }
 
-    public List<MyRecipesDTO> findAllMyRecipeByCategory(String id, Category category) {
+    public List<MyRecipesDTO> findAllMyRecipeByCategory(String id, CategoryEnum category) {
         Member member = memberRepository.findOne(id);
         List<MyRecipes> myRecipes = myRecipeRepository.findByCategory(member, category);
 

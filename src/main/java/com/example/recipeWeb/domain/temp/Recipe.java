@@ -1,4 +1,4 @@
-package com.example.recipeWeb.domain;
+package com.example.recipeWeb.domain.temp;
 
 import com.example.recipeWeb.domain.enums.CategoryEnum;
 import lombok.AccessLevel;

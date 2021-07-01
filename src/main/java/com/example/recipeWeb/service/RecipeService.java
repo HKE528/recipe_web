@@ -1,8 +1,6 @@
 package com.example.recipeWeb.service;
 
-import com.example.recipeWeb.DTO.RecipeDTO;
-import com.example.recipeWeb.domain.Recipe;
-import com.example.recipeWeb.repository.RecipeRepository;
+import com.example.recipeWeb.domain.temp.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

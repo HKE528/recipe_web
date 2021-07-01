@@ -1,11 +1,10 @@
-package com.example.recipeWeb.domain;
+package com.example.recipeWeb.domain.temp;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity

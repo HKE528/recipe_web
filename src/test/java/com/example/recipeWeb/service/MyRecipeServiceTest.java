@@ -1,9 +1,6 @@
 package com.example.recipeWeb.service;
 
-import com.example.recipeWeb.DTO.MemberDTO;
-import com.example.recipeWeb.DTO.MyRecipesDTO;
-import com.example.recipeWeb.DTO.RecipeDTO;
-import com.example.recipeWeb.domain.Category;
+import com.example.recipeWeb.domain.enums.CategoryEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,9 +43,9 @@ public class MyRecipeServiceTest {
         MemberDTO mem1 = generateMemberDTO();
         String memId = memberService.join(mem1);
 
-        RecipeDTO recipe1 = generateRecipeDTO(Category.KOREAN);
-        RecipeDTO recipe2 = generateRecipeDTO(Category.OTHERS);
-        RecipeDTO recipe3 = generateRecipeDTO(Category.JAPANESE);
+        RecipeDTO recipe1 = generateRecipeDTO(CategoryEnum.KOREAN);
+        RecipeDTO recipe2 = generateRecipeDTO(CategoryEnum.OTHERS);
+        RecipeDTO recipe3 = generateRecipeDTO(CategoryEnum.JAPANESE);
 
         //when
         int ko = myRecipeService.createMyRecipe(memId, recipe1);
@@ -62,9 +57,9 @@ public class MyRecipeServiceTest {
         MyRecipesDTO jpDTO1 = myRecipeService.findMyRecipe(jp);
 
         //then
-        List<MyRecipesDTO> result1 = myRecipeService.findAllMyRecipeByCategory(memId, Category.KOREAN);
-        List<MyRecipesDTO> result2 = myRecipeService.findAllMyRecipeByCategory(memId, Category.OTHERS);
-        List<MyRecipesDTO> result3 = myRecipeService.findAllMyRecipeByCategory(memId, Category.JAPANESE);
+        List<MyRecipesDTO> result1 = myRecipeService.findAllMyRecipeByCategory(memId, CategoryEnum.KOREAN);
+        List<MyRecipesDTO> result2 = myRecipeService.findAllMyRecipeByCategory(memId, CategoryEnum.OTHERS);
+        List<MyRecipesDTO> result3 = myRecipeService.findAllMyRecipeByCategory(memId, CategoryEnum.JAPANESE);
 
         assertEquals(koDTO1.getId(), result1.get(0).getId());
         assertEquals(ohDTO1.getId(), result2.get(0).getId());
@@ -78,10 +73,10 @@ public class MyRecipeServiceTest {
     }
 
     private RecipeDTO generateRecipeDTO() {
-        return new RecipeDTO("testName", Category.KOREAN, "testtest", "testteststest");
+        return new RecipeDTO("testName", CategoryEnum.KOREAN, "testtest", "testteststest");
     }
 
-    private RecipeDTO generateRecipeDTO(Category category) {
+    private RecipeDTO generateRecipeDTO(CategoryEnum category) {
         return new RecipeDTO("testName", category, "testtest", "testteststest");
     }
 }

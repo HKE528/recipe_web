@@ -1,16 +1,10 @@
 package com.example.recipeWeb.service;
 
-import com.example.recipeWeb.DTO.MemberDTO;
-import com.example.recipeWeb.domain.Member;
-import com.example.recipeWeb.exception.DupIdException;
-import com.example.recipeWeb.repository.MemberRepository;
-import lombok.NoArgsConstructor;
+import com.example.recipeWeb.domain.temp.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

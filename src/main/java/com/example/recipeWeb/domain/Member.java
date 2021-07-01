@@ -1,62 +1,38 @@
 package com.example.recipeWeb.domain;
 
-import com.example.recipeWeb.DTO.MemberDTO;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Getter
+@Entity @Getter
 @Table(name = "tb_member")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
-    @Id
-    @Column(name = "member_id", length = 10)
-    private String id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
 
-    @Column(nullable = false, length = 20)
-    private String pw;
-
-    @Column(name = "member_name", length = 20)
-    private String name;
-
-    @Column(length = 50)
-    private String email;
+    @Column(length = 30, nullable = false, unique = true)
+    private String username;
 
     @Column(nullable = false)
-    private LocalDate joindate;
+    private String password;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private final List<MyRecipes> myRecipes = new ArrayList<>();
+    @Column(nullable = false)
+    private Boolean enabled = true;
 
-    public Member(String id, String pw, String name, String email) {
-        this.id = id;
-        this.pw = pw;
-        this.name = name.isEmpty()? id : name;
-        this.email = email;
-        joindate = LocalDate.now();
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles= new ArrayList<>();
 
-    public Member(MemberDTO memberDTO) {
-        this.id = memberDTO.getId();
-        this.pw = memberDTO.getPw();
-        this.name = memberDTO.getName().isEmpty()? memberDTO.getId() : memberDTO.getName();
-        this.email = memberDTO.getEmail();
-        joindate = LocalDate.now();
-    }
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private MemberInfo memberInfo;
 
-    public void changeInfo(String pw, String name, String email) {
-        if(pw != null && !pw.isEmpty()) {
-            this.pw = pw;
-        }
-        this.name = name;
-        this.email = email;
-    }
+
 }
