@@ -23,10 +23,6 @@ public class Recipe {
     @Column(name="recipe_name", length = 40, nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CategoryEnum category;
-
     @Column(length = 2000)
     private String ingredient;
 
@@ -37,40 +33,16 @@ public class Recipe {
     private String comment;
 
     @Column(nullable = false)
-    private boolean shared = false;
+    private boolean shareable = false;
 
-    public Recipe(String name, CategoryEnum category, String ingredient, String description, boolean shared) {
-        this.name = name;
-        this.category = category;
-        this.ingredient = ingredient;
-        this.description = description;
-        this.shared = shared;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    public Recipe(String name, CategoryEnum category, String ingredient, String description) {
-        this.name = name;
-        this.category = category;
-        this.ingredient = ingredient;
-        this.description = description;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    public Recipe(String name, CategoryEnum category, String ingredient, String description, String comment) {
-        this.name = name;
-        this.category = category;
-        this.ingredient = ingredient;
-        this.description = description;
-        this.comment = comment;
-    }
-
-    public Recipe(RecipeDTO dto) {
-        changData(dto);
-    }
-
-    public void changData(RecipeDTO dto) {
-        this.name = dto.getName();
-        this.category = dto.getCategory();
-        this.ingredient = dto.getIngredient();
-        this.description = dto.getDescription();
-        this.comment = dto.getComment();
-    }
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.ALL)
+    private RecipeInfo recipeInfo;
 }

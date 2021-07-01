@@ -25,7 +25,7 @@ public class Member {
 
     @ManyToMany
     @JoinTable(
-            name = "tb_user_role",
+            name = "tb_member_role",
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
@@ -33,6 +33,12 @@ public class Member {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private MemberInfo memberInfo;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Recipe> recipes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Favorite> favorites;
 
 
 }

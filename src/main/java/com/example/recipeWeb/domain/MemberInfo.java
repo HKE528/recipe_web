@@ -14,7 +14,7 @@ public class MemberInfo {
     private Long id;
 
     @Column(length = 30)
-    private String nike;
+    private String nikename;
 
     @Column(length = 50)
     private String email;
