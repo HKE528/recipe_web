@@ -1,5 +1,6 @@
 package com.example.recipeWeb.domain.dto;
 
+import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.enums.RoleEnum;
 import lombok.Data;
 
@@ -38,5 +39,25 @@ public class MemberDTO {
         this.nickname = nickname;
         this.email = email;
         this.joinDate = joinDate;
+    }
+
+    public MemberDTO(String username, String password, boolean enabled, String nickname, String email) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.nickname = nickname;
+        this.email = email;
+    }
+
+    public static MemberDTO generateDTO(Member member) {
+        return new MemberDTO(
+                member.getId(),
+                member.getUsername(),
+                member.getPassword(),
+                member.getEnabled(),
+                member.getMemberInfo().getNickname(),
+                member.getMemberInfo().getEmail(),
+                member.getMemberInfo().getJoindate()
+        );
     }
 }
