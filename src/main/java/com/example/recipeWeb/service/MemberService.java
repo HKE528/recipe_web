@@ -9,6 +9,7 @@ import com.example.recipeWeb.repository.MemberRepository;
 import com.example.recipeWeb.repository.RoleRepository;
 import javassist.bytecode.DuplicateMemberException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void joinMember(MemberDTO dto) throws DuplicateMemberException {

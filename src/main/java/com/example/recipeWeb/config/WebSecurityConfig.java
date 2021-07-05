@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select username, password, enabled "
                         + "from tb_member "
                         + "where username = ?")

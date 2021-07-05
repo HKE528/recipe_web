@@ -18,8 +18,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @Transactional
 public class MemberServiceTest {
-    @Autowired
-    private MemberService memberService;
+    @Autowired private MemberService memberService;
     
     @Test
     public void 회원가입_테스트() throws DuplicateMemberException {
