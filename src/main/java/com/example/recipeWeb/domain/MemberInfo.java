@@ -2,12 +2,14 @@ package com.example.recipeWeb.domain;
 
 import com.example.recipeWeb.domain.dto.MemberDTO;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity @Getter
 @Table(name = "tb_memberinfo")
+@DynamicUpdate
 public class MemberInfo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
