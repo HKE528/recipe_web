@@ -39,6 +39,9 @@ public class MemberService {
 
         Role role = roleRepository.findByName(RoleEnum.ROLE_USER);
 
+        String encode = passwordEncoder.encode(dto.getPassword());
+        dto.setPassword(encode);
+
         Member member = Member.createMember(dto, memberInfo, role);
 
         memberRepository.save(member);
@@ -55,6 +58,9 @@ public class MemberService {
     @Transactional
     public void updateMember(MemberDTO dto) {
         Member member = memberRepository.findByUsername(dto.getUsername()).orElseThrow(NoSuchElementException::new);
+
+        String encode = passwordEncoder.encode(dto.getPassword());
+        dto.setPassword(encode);
 
         member.changeData(dto);
     }
