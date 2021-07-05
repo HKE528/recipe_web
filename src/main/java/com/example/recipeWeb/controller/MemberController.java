@@ -70,4 +70,12 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @RequestMapping("/drop")
+    public String drop(Principal principal) {
+        String username = principal.getName();
+
+        memberService.deleteMember(username);
+
+        return "redirect:/member/login";
+    }
 }
