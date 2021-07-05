@@ -4,7 +4,9 @@ import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.MemberInfo;
 import com.example.recipeWeb.domain.Role;
 import com.example.recipeWeb.domain.dto.MemberDTO;
+import com.example.recipeWeb.domain.enums.RoleEnum;
 import com.example.recipeWeb.repository.MemberRepository;
+import com.example.recipeWeb.repository.RoleRepository;
 import javassist.bytecode.DuplicateMemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final RoleRepository roleRepository;
 
     @Transactional
     public void joinMember(MemberDTO dto) throws DuplicateMemberException {
@@ -26,17 +29,23 @@ public class MemberService {
         }
 
         MemberInfo memberInfo = MemberInfo.createMemberInfo(dto);
-        Role role = Role.createUserRole();
+
+        if(roleRepository.findByName(RoleEnum.ROLE_USER) == null) {
+            roleRepository.save(Role.createUserRole());
+            roleRepository.save(Role.createAdminRole());
+        }
+
+        Role role = roleRepository.findByName(RoleEnum.ROLE_USER);
 
         Member member = Member.createMember(dto, memberInfo, role);
 
         memberRepository.save(member);
     }
 
-    public MemberDTO findMember(MemberDTO dto) {
-        Member member = memberRepository.findByUsername(dto.getUsername()).orElseThrow(NoSuchElementException::new);
+    public MemberDTO findMember(String username) {
+        Member member = memberRepository.findByUsername(username).orElseThrow(NoSuchElementException::new);
 
-        MemberDTO memberDTO = generateDTO(member);
+        MemberDTO memberDTO = MemberDTO.generateDTO(member);
 
         return memberDTO;
     }
@@ -61,15 +70,4 @@ public class MemberService {
         return member != null;
     }
 
-    private MemberDTO generateDTO(Member member) {
-        return new MemberDTO(
-                member.getId(),
-                member.getUsername(),
-                member.getPassword(),
-                member.getEnabled(),
-                member.getMemberInfo().getNickname(),
-                member.getMemberInfo().getEmail(),
-                member.getMemberInfo().getJoindate()
-        );
-    }
 }
