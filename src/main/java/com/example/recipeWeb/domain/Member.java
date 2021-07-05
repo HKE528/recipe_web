@@ -68,7 +68,7 @@ public class Member {
     }
 
     public void changeData(MemberDTO dto) {
-        this.password = getPassword();
+        this.password = dto.getPassword();
         this.enabled = dto.isEnabled();
         this.memberInfo.changeData(dto.getNickname(), dto.getEmail());
     }
