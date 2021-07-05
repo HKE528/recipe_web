@@ -23,7 +23,7 @@
 
     <!--<div class="d-flex justify-content-end">-->
     <div class="text-end" sec:authorize="not isAuthenticated()">
-        <a href="#" th:href="@{/account/login}" class="btn btn-success me-3"> 로그인 </a>
+        <a href="#" th:href="@{/member/login}" class="btn btn-success me-3"> 로그인 </a>
     </div>
 
     <form class="text-end" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
