@@ -39,6 +39,8 @@ public class MemberInfo {
     }
 
     public static MemberInfo createMemberInfo(MemberDTO dto) {
+        dto.setJoinDate(LocalDate.now());
+
         MemberInfo memberInfo = new MemberInfo(
                 dto.getNickname(),
                 dto.getEmail(),

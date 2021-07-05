@@ -2,7 +2,9 @@ package com.example.recipeWeb.domain;
 
 import com.example.recipeWeb.domain.dto.MemberDTO;
 import com.example.recipeWeb.domain.enums.RoleEnum;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @Table(name = "tb_member")
 @DynamicInsert
 @DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +38,7 @@ public class Member {
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> roles= new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private MemberInfo memberInfo;
@@ -45,9 +48,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Favorite> favorites = new ArrayList<>();
-
-    public Member() {
-    }
 
     public Member(String username, String password, Boolean enabled, MemberInfo memberInfo) {
         this.username = username;
@@ -59,6 +59,7 @@ public class Member {
     //==생성 메서드==//
     public static Member createMember(MemberDTO dto, MemberInfo memberInfo, Role... roles) {
         Member member = new Member(dto.getUsername(), dto.getPassword(), dto.isEnabled(), memberInfo);
+        member.getMemberInfo().member = member;
 
         for(Role role : roles) {
             member.getRoles().add(role);

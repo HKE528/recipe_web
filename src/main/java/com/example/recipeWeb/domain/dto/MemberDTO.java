@@ -13,7 +13,7 @@ public class MemberDTO {
     private Long id;
     private String username;
     private String password;
-    private boolean enabled;
+    private boolean enabled = true;
 
     private String nickname;
     private String email;
