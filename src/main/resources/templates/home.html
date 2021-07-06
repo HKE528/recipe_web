@@ -49,6 +49,18 @@
     </div>
 
     <div th:replace="fragments/footer :: footer" />
+
+    <script th:inline="javascript">
+        $('input[type=radio][name=orderRadioOptions]').change(function() {
+            //    var arr = $('input[type=radio][name=orderRadioOptions]');
+
+            var radioValue = $(this).val();
+            var selected = [[${selected}]];
+
+            //location.href = "/recipe/order?radio=" + radioValue + "&cate=" + selected;
+            location.href = "/home/" + selected + "?radio=" + radioValue;
+        });
+    </script>
 </body>
 
 </html>

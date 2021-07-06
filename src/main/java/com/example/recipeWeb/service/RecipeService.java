@@ -43,6 +43,21 @@ public class RecipeService {
         return dtos;
     }
 
+    public List<RecipeDTO> findAllShardRecipe(String searchText, OrderTypeEnum type) {
+        List<Recipe> recipes = recipeRepository.findByShareableAndNameContaining(true, searchText);
+        List<RecipeDTO> dtos = new ArrayList<>();
+
+        for(Recipe recipe : recipes) {
+            RecipeDTO dto = RecipeDTO.generateDTO(recipe);
+            dto.setUsername(recipe.getMember().getUsername());
+            dtos.add(dto);
+        }
+
+        if(type != OrderTypeEnum.OLDER)    dtos = sortByType(dtos, type);
+
+        return dtos;
+    }
+
     public List<RecipeDTO> findAllMyRecipe(String username, OrderTypeEnum orderType) {
         Optional<Member> member = memberRepository.findByUsername(username);
         List<RecipeDTO> recipes = new ArrayList<>();
@@ -120,5 +135,4 @@ public class RecipeService {
                 list.stream().sorted(Comparator.comparing(RecipeDTO::getName)).toList() :
                 list.stream().sorted(Comparator.comparing(RecipeDTO::getDate).reversed()).toList();
     }
-
 }

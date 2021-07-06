@@ -2,6 +2,7 @@ package com.example.recipeWeb.controller;
 
 import com.example.recipeWeb.domain.Role;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
+import com.example.recipeWeb.domain.enums.OrderTypeEnum;
 import com.example.recipeWeb.domain.enums.RoleEnum;
 import com.example.recipeWeb.repository.RoleRepository;
 import com.example.recipeWeb.service.RecipeService;
@@ -27,20 +28,24 @@ public class HomeController {
 
     @RequestMapping("/home/{cate}")
     public String home(@PathVariable("cate")String cate, Model model,
-                       @RequestParam(value = "searchText", defaultValue = "") String searchText) {
+                       @RequestParam(value = "searchText", defaultValue = "") String searchText,
+                       @RequestParam(value = "radio", defaultValue = "") String radio) {
 
-        List<RecipeDTO> recipes = recipeService.findAllShardRecipe(searchText);
+        OrderTypeEnum orderType = switch (radio) {
+            case "name"   -> OrderTypeEnum.NAME;
+            case "latest" -> OrderTypeEnum.LATEST;
+            default       -> OrderTypeEnum.OLDER;
+        };
+
+        List<RecipeDTO> recipes = recipeService.findAllShardRecipe(searchText, orderType);
 
         if(!cate.equals("all")) {
             recipes = recipeService.category(cate, recipes);
         }
 
-//        if(searchText != null && !searchText.isEmpty()) {
-//            recipes = recipeService.search(searchText, recipes);
-//        }
-
         model.addAttribute("recipes", recipes);
         model.addAttribute("selected", cate);
+        model.addAttribute("orderType", orderType);
 
         return "home";
     }
