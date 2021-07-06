@@ -4,6 +4,7 @@ import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.Recipe;
 import com.example.recipeWeb.domain.RecipeInfo;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
+import com.example.recipeWeb.domain.enums.CategoryEnum;
 import com.example.recipeWeb.repository.MemberRepository;
 import com.example.recipeWeb.repository.RecipeRepository;
 import javassist.NotFoundException;
@@ -82,5 +83,24 @@ public class RecipeService {
         Recipe recipe = recipeRepository.findById(dto.getId()).orElse(null);
 
         recipe.changeData(dto);
+    }
+
+    //분류
+    public List<RecipeDTO> category(String cate, List<RecipeDTO> list) {
+        CategoryEnum category =
+                switch (cate) {
+                    case "ko" -> CategoryEnum.KOREAN;
+                    case "jp" -> CategoryEnum.JAPANESE;
+                    case "ch" -> CategoryEnum.CHINESE;
+                    case "we" -> CategoryEnum.WESTERN;
+                    default   -> CategoryEnum.OTHERS;
+                };
+
+        return list.stream().filter(it -> it.getCategory() == category).toList();
+    }
+
+    //검색
+    public List<RecipeDTO> search(String text, List<RecipeDTO> list) {
+        return list.stream().filter(it -> it.getName().contains(text)).toList();
     }
 }
