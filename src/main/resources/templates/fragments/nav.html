@@ -32,3 +32,34 @@
         <button type="submit" class="btn btn-outline-success me-3"> 로그아웃 </button>
     </form>
 </nav>
+
+<div class="d-flex justify-content-end border-bottom" th:fragment="searchBar(target)">
+    <div class="form-check form-check-inline mt-2">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="orderByName" value="name">
+        <label class="form-check-label" for="orderByName">이름 순</label>
+    </div>
+
+    <div class="form-check form-check-inline mt-2">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="orderByLatest" value="latest">
+        <label class="form-check-label" for="orderByLatest">최근 추가된 순</label>
+    </div>
+
+    <div class="form-check form-check-inline mt-2">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="orderByOlder" value="older" checked>
+        <label class="form-check-label" for="orderByOlder">먼저 추가된 순</label>
+    </div>
+
+    <form class="row g-3" th:action="@{/recipe/search}">
+        <input type="hidden" th:value="${target}">
+
+        <div class="col-auto">
+            <input type="text" class="form-control" id="searchText"
+                   placeholder="검색어를 입력하세요" th:value="${param.searchText}">
+        </div>
+
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-secondary mb-3">검색</button>
+        </div>
+
+    </form>
+</div>
