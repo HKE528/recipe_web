@@ -30,6 +30,19 @@ public class RecipeService {
         return recipeDTO;
     }
 
+    public List<RecipeDTO> findAllShardRecipe() {
+        List<Recipe> recipes = recipeRepository.findByShareable(false);
+        List<RecipeDTO> dtos = new ArrayList<>();
+
+        for(Recipe recipe : recipes) {
+            RecipeDTO dto = RecipeDTO.generateDTO(recipe);
+            dto.setUsername(recipe.getMember().getUsername());
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
     public List<RecipeDTO> findAllMyRecipe(String username) {
         Optional<Member> member = memberRepository.findByUsername(username);
         List<RecipeDTO> recipes = new ArrayList<>();
