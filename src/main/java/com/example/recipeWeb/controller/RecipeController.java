@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -99,5 +100,17 @@ public class RecipeController {
         recipeService.deleteRecipe(id);
 
         return "redirect:/recipe/my/all";
+    }
+
+    @GetMapping("/my/shard/{id}")
+    public String shard(@PathVariable("id") Long id,
+                       @RequestParam("shard") boolean shard,
+                       @RequestParam(value = "selected", defaultValue = "all") String cate) {
+
+        recipeService.setShard(id, shard);
+
+//        redirect.addAttribute("cate", cate);
+
+        return "redirect:/recipe/my/" + cate;
     }
 }

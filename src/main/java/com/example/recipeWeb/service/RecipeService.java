@@ -32,7 +32,7 @@ public class RecipeService {
     }
 
     public List<RecipeDTO> findAllShardRecipe() {
-        List<Recipe> recipes = recipeRepository.findByShareable(false);
+        List<Recipe> recipes = recipeRepository.findByShareable(true);
         List<RecipeDTO> dtos = new ArrayList<>();
 
         for(Recipe recipe : recipes) {
@@ -102,5 +102,12 @@ public class RecipeService {
     //검색
     public List<RecipeDTO> search(String text, List<RecipeDTO> list) {
         return list.stream().filter(it -> it.getName().contains(text)).toList();
+    }
+
+    //공유
+    public void setShard(Long id, boolean shareable) {
+        Recipe recipe = recipeRepository.findById(id).get();
+
+        recipe.setShareable(shareable);
     }
 }

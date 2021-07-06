@@ -48,6 +48,10 @@ public class Recipe {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.ALL)
     private RecipeInfo recipeInfo;
 
+    public void setShareable(boolean shareable) {
+        this.shareable = shareable;
+    }
+
     public Recipe(String name, String ingredient, String description, String comment, boolean shareable, CategoryEnum category) {
         this.name = name;
         this.ingredient = ingredient;
