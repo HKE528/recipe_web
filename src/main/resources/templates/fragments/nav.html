@@ -27,7 +27,7 @@
     </div>
 
     <form class="text-end" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-        <a href="member/mypage" class="text-white" sec:authentication="name">사용자</a>
+        <a href="/member/mypage" class="text-white" sec:authentication="name">사용자</a>
         <span class="text-white" sec:authentication="principal.authorities">권한</span>
         <button type="submit" class="btn btn-outline-success me-3"> 로그아웃 </button>
     </form>
