@@ -75,7 +75,7 @@ public class Recipe {
 
     public void changeData(RecipeDTO dto) {
         this.name = dto.getName();
-        this.ingredient = dto.getDescription();
+        this.ingredient = dto.getIngredient();
         this.description = dto.getDescription();
         this.comment = dto.getComment();
         this.category = dto.getCategory();
