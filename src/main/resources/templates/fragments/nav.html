@@ -50,10 +50,10 @@
     </div>
 
     <form class="row g-3" th:action="@{/recipe/search}">
-        <input type="hidden" th:value="${target}">
+        <input type="hidden" th:value="${target}" name="target">
 
         <div class="col-auto">
-            <input type="text" class="form-control" id="searchText"
+            <input type="text" class="form-control" id="searchText", name="searchText"
                    placeholder="검색어를 입력하세요" th:value="${param.searchText}">
         </div>
 

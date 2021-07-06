@@ -37,4 +37,8 @@ public class RecipeInfo {
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
+    public void increaseView() {
+        this.view += 1;
+    }
 }

@@ -31,8 +31,9 @@ public class RecipeService {
         return recipeDTO;
     }
 
-    public List<RecipeDTO> findAllShardRecipe() {
-        List<Recipe> recipes = recipeRepository.findByShareable(true);
+    public List<RecipeDTO> findAllShardRecipe(String searchText) {
+//        List<Recipe> recipes = recipeRepository.findByShareable(true);
+        List<Recipe> recipes = recipeRepository.findByShareableAndNameContaining(true, searchText);
         List<RecipeDTO> dtos = new ArrayList<>();
 
         for(Recipe recipe : recipes) {

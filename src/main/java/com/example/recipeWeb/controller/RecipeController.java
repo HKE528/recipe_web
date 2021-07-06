@@ -25,17 +25,17 @@ public class RecipeController {
 
     @GetMapping("/my/{cate}")
     public String myRecipe(@PathVariable("cate") String cate,
-                           @RequestParam(value = "searchText", required = false) String searchText,
+                           @RequestParam(value = "searchText", defaultValue = "") String searchText,
                            Principal principal, Model model) {
 
         String username = principal.getName();
         List<RecipeDTO> myRecipes = recipeService.findAllMyRecipe(username);
 
-        if(!cate.equals("all")) {
+        if (!cate.equals("all")) {
             myRecipes = recipeService.category(cate, myRecipes);
         }
 
-        if(searchText != null && !searchText.isEmpty()) {
+        if (searchText != null && !searchText.isEmpty()) {
             myRecipes = recipeService.search(searchText, myRecipes);
         }
 
@@ -104,13 +104,30 @@ public class RecipeController {
 
     @GetMapping("/my/shard/{id}")
     public String shard(@PathVariable("id") Long id,
-                       @RequestParam("shard") boolean shard,
-                       @RequestParam(value = "selected", defaultValue = "all") String cate) {
+                        @RequestParam("shard") boolean shard,
+                        @RequestParam(value = "selected", defaultValue = "all") String cate) {
 
         recipeService.setShard(id, shard);
 
 //        redirect.addAttribute("cate", cate);
 
         return "redirect:/recipe/my/" + cate;
+    }
+
+    @RequestMapping("/search")
+    public String search(@RequestParam("target") String target,
+                         @RequestParam(value = "searchText", defaultValue = "") String searchText,
+                         RedirectAttributes redirect) {
+        String action = "redirect:/";
+
+        action += switch (target) {
+            case "home"     -> "home/all";
+            case "myrecipe" -> "recipe/my/all";
+            default         -> "";
+        };
+
+        redirect.addAttribute("searchText", searchText);
+
+        return action;
     }
 }

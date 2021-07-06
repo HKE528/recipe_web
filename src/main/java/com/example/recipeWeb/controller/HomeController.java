@@ -27,17 +27,17 @@ public class HomeController {
 
     @RequestMapping("/home/{cate}")
     public String home(@PathVariable("cate")String cate, Model model,
-                       @RequestParam(value = "searchText", required = false) String searchText) {
+                       @RequestParam(value = "searchText", defaultValue = "") String searchText) {
 
-        List<RecipeDTO> recipes = recipeService.findAllShardRecipe();
+        List<RecipeDTO> recipes = recipeService.findAllShardRecipe(searchText);
 
         if(!cate.equals("all")) {
             recipes = recipeService.category(cate, recipes);
         }
 
-        if(searchText != null && !searchText.isEmpty()) {
-            recipes = recipeService.search(searchText, recipes);
-        }
+//        if(searchText != null && !searchText.isEmpty()) {
+//            recipes = recipeService.search(searchText, recipes);
+//        }
 
         model.addAttribute("recipes", recipes);
         model.addAttribute("selected", cate);
