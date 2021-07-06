@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,8 +26,18 @@ public class HomeController {
     }
 
     @RequestMapping("/home/{cate}")
-    public String home(@PathVariable("cate")String cate, Model model) {
+    public String home(@PathVariable("cate")String cate, Model model,
+                       @RequestParam(value = "searchText", required = false) String searchText) {
+
         List<RecipeDTO> recipes = recipeService.findAllShardRecipe();
+
+        if(!cate.equals("all")) {
+            recipes = recipeService.category(cate, recipes);
+        }
+
+        if(searchText != null && !searchText.isEmpty()) {
+            recipes = recipeService.search(searchText, recipes);
+        }
 
         model.addAttribute("recipes", recipes);
         model.addAttribute("selected", cate);

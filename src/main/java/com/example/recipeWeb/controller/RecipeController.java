@@ -23,24 +23,20 @@ public class RecipeController {
     private final MemberService memberService;
 
     @GetMapping("/my/{cate}")
-    public String myRecipe(@PathVariable("cate") String cate, Principal principal, Model model) {
+    public String myRecipe(@PathVariable("cate") String cate,
+                           @RequestParam(value = "searchText", required = false) String searchText,
+                           Principal principal, Model model) {
+
         String username = principal.getName();
         List<RecipeDTO> myRecipes = recipeService.findAllMyRecipe(username);
 
         if(!cate.equals("all")) {
-            CategoryEnum category =
-                    switch (cate) {
-                        case "ko" -> CategoryEnum.KOREAN;
-                        case "jp" -> CategoryEnum.JAPANESE;
-                        case "ch" -> CategoryEnum.CHINESE;
-                        case "we" -> CategoryEnum.WESTERN;
-                        default   -> CategoryEnum.OTHERS;
-                    };
-
-            myRecipes = myRecipes.stream()
-                    .filter(it -> it.getCategory() == category).toList();
+            myRecipes = recipeService.category(cate, myRecipes);
         }
 
+        if(searchText != null && !searchText.isEmpty()) {
+            myRecipes = recipeService.search(searchText, myRecipes);
+        }
 
         model.addAttribute("recipes", myRecipes);
         model.addAttribute("selected", cate);
