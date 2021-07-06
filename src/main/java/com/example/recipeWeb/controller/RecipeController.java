@@ -128,7 +128,7 @@ public class RecipeController {
         action += switch (target) {
             case "home"     -> "home/all";
             case "myrecipe" -> "recipe/my/all";
-            default         -> "";
+            default         -> "favorite/my/all";
         };
 
         redirect.addAttribute("searchText", searchText);

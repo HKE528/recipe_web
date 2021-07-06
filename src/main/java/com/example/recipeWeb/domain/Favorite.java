@@ -1,6 +1,8 @@
 package com.example.recipeWeb.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,4 +25,26 @@ public class Favorite {
 
     @Column(nullable = false)
     private LocalDate date;
+
+    public Favorite() {
+        this.date = LocalDate.now();
+    }
+
+    public static Favorite createFavorite(Member member, Recipe recipe) {
+        Favorite favorite = new Favorite();
+
+        favorite.setRecipe(recipe);
+        favorite.setMember(member);
+
+        return favorite;
+    }
+
+    private void setMember(Member member) {
+        this.member = member;
+        member.getFavorites().add(this);
+    }
+
+    private void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }

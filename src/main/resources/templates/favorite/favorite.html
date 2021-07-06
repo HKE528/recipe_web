@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header">
+</head>
+<title>My Recipe</title>
+
+
+<body>
+    <div th:replace="fragments/nav :: nav('favorite')" />
+
+    <!-- Page Content -->
+    <div class="container">
+        <div th:replace="fragments/nav :: searchBar('favorite')" />
+
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <h1 class="my-4">내 레시피</h1>
+
+                <div class="list-group pb-3">
+                    <a th:href="@{/recipe/my/{cate} (cate='all')}" class="list-group-item" th:classappend="${selected} == 'all' ? 'active'">전체</a>
+                    <a th:href="@{/recipe/my/{cate} (cate='ko')}" class="list-group-item" th:classappend="${selected} == 'ko' ? 'active'">한식</a>
+                    <a th:href="@{/recipe/my/{cate} (cate='jp')}" class="list-group-item" th:classappend="${selected} == 'jp' ? 'active'">일식</a>
+                    <a th:href="@{/recipe/my/{cate} (cate='ch')}" class="list-group-item" th:classappend="${selected} == 'ch' ? 'active'">중식</a>
+                    <a th:href="@{/recipe/my/{cate} (cate='we')}" class="list-group-item" th:classappend="${selected} == 'we' ? 'active'">양식</a>
+                    <a th:href="@{/recipe/my/{cate} (cate='ot')}" class="list-group-item" th:classappend="${selected} == 'ot' ? 'active'">기타</a>
+                </div>
+
+<!--
+                <div class="d-grid gap-2">
+                    <a th:href="@{/recipe/my/add}" class="btn btn-success btn-lg">+</a>
+                </div>
+-->
+
+            </div>
+
+
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+                <div class="row">
+
+                    <div th:replace="recipe/recipeCard :: recipeCard" />
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+    <script th:inline="javascript">
+        $('input[type=radio][name=orderRadioOptions]').change(function() {
+            //    var arr = $('input[type=radio][name=orderRadioOptions]');
+
+            var radioValue = $(this).val();
+            var selected = [[${selected}]];
+
+            location.href = "/recipe/order?radio=" + radioValue + "&cate=" + selected;
+        });
+    </script>
+
+</body>
+
+</html>
