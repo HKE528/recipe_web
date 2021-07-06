@@ -20,12 +20,12 @@
                 <h1 class="my-4">Home</h1>
 
                 <div class="list-group pb-3">
-                    <a href="#" class="list-group-item">전체</a>
-                    <a href="#" class="list-group-item">한식</a>
-                    <a href="#" class="list-group-item">일식</a>
-                    <a href="#" class="list-group-item">중식</a>
-                    <a href="#" class="list-group-item">양식</a>
-                    <a href="#" class="list-group-item">기타</a>
+                    <a th:href="@{/home/{cate} (cate='all')}" class="list-group-item" th:classappend="${selected} == 'all' ? 'active'">전체</a>
+                    <a th:href="@{/home/{cate} (cate='ko')}" class="list-group-item" th:classappend="${selected} == 'ko' ? 'active'">한식</a>
+                    <a th:href="@{/home/{cate} (cate='jp')}" class="list-group-item" th:classappend="${selected} == 'jp' ? 'active'">일식</a>
+                    <a th:href="@{/home/{cate} (cate='ch')}" class="list-group-item" th:classappend="${selected} == 'ch' ? 'active'">중식</a>
+                    <a th:href="@{/home/{cate} (cate='we')}" class="list-group-item" th:classappend="${selected} == 'we' ? 'active'">양식</a>
+                    <a th:href="@{/home/{cate} (cate='ot')}" class="list-group-item" th:classappend="${selected} == 'ot' ? 'active'">기타</a>
                 </div>
 
             </div>
@@ -34,22 +34,7 @@
             <div class="col-lg-9">
                 <div class="row">
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item One</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
+                    <div th:replace="recipe/homeRecipeCard :: homeRecipeCard" />
 
                 </div>
                 <!-- /.row -->
