@@ -2,27 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!--<div class="recipeCard" th:fragment="recipeCard">-->
-  <th:block th:if="${#lists.size('recipes') != 0}" th:each="item : ${myRecipes}" class="recipeCard" th:fragment="recipeCard">
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card h-100">
-        <div class="card-header">
-          <small class="text-muted" th:text="${item.memberDTO.id}">ID</small>
+<th:block th:if="${#lists.size('recipes') != 0}" th:each="recipe : ${recipes}" th:fragment="recipeCard">
+    <div class="col-lg-4 col-md-4 mb-4 mt-3">
+        <div class="card h-100">
+            <div class="card-header">
+                <small class="text-muted" th:text="${recipe.username}">ID</small>
+            </div>
+            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+            <div class="card-body" style="height: 145px;">
+                <h3 class="card-title">
+                    <!--<a th:href="@{/recipe/my/view/{id} (id=${recipe.id})}" th:text="${recipe.name}">Item Name</a>-->
+                    <form th:action="@{/recipe/my/view/{id} (id=${recipe.id})}" method="get" id="viewForm">
+                        <input type="hidden" th:value="${selected}" name="selected">
+                        <a href="#" onclick="document.forms['viewForm'].submit()" th:text="${recipe.name}">제목</a>
+                    </form>
+                </h3>
+                <h5 th:text="${recipe.category}">Category</h5>
+                <p th:text="${recipe.comment}" class="card-text">코멘트!</p>
+            </div>
+            <div class="card-footer">
+                <!--<small class="text-muted">★ ★ ★ ★ ☆</small>-->
+                <small class="text-muted d-flex justify-content-end" style="margin-left: 55px;">
+                    <a th:href="|javascript:confirmDeleteRecipe(${recipe.id});|"
+                        style="text-decoration:none; color: gray;">삭제</a>
+                </small>
+            </div>
         </div>
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body" style="height: 145px;">
-          <h3 class="card-title">
-            <a th:href="@{/recipe/{memberId}/view/{id} (memberId=${item.memberDTO.id}, id=${item.id})}" th:text="${item.recipeDTO.name}">Item Name</a>
-          </h3>
-          <h5 th:text="${item.recipeDTO.category}">Category</h5>
-          <!--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>-->
-          <p th:text="${item.recipeDTO.comment}" class="card-text">코멘트!</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">★ ★ ★ ★ ☆</small>
-          <small class="text-muted" style="margin-left: 55px;">
-            <a th:href="'javascript:confirmDelete(\'' + ${item.memberDTO.id} +'\', '+ ${item.id} + ')'" style="text-decoration:none; color: gray;">삭제</a>
-          </small>
-        </div>
-      </div>
     </div>
-  </th:block>
+</th:block>

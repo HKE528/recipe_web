@@ -37,6 +37,7 @@ public class RecipeService {
         if(member.isPresent()) {
             for (Recipe recipe : member.get().getRecipes()) {
                 RecipeDTO dto = RecipeDTO.generateDTO(recipe);
+                dto.setUsername(recipe.getMember().getUsername());
                 recipes.add(dto);
             }
         }

@@ -22,30 +22,31 @@
         <div class="row no-gutters justify-content-center align-items-center">
             <div class="card col-6 px-0">
                 <div class="card-header">
-                    <h2 th:text="${myRecipe.recipeDTO.name}">레시피 이름</h2>
-                    <h5 th:text="${myRecipe.recipeDTO.category}">카테고리</h5>
+                    <h2 th:text="${recipe.name}">레시피 이름</h2>
+                    <h5 th:text="${recipe.category}">카테고리</h5>
                 </div>
                 <div class="card-body">
                     <div class="p-2">
                         <h5 class="card-title pb-2 border-bottom">설명</h5>
-                        <p class="card-text p-3" th:utext="${#strings.replace(myRecipe.recipeDTO.comment, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
+                        <p class="card-text p-3" th:utext="${#strings.replace(recipe.comment, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
                     </div>
 
                     <div class="p-2 mt-2">
                         <h5 class="card-title pb-2 border-bottom">재료</h5>
-                        <p class="card-text p-3" th:utext="${#strings.replace(myRecipe.recipeDTO.ingredient, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
+                        <p class="card-text p-3" th:utext="${#strings.replace(recipe.ingredient, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
                     </div>
 
                     <div class="p-2 mt-2">
                         <h5 class="card-title pb-2 border-bottom">레시피</h5>
-                        <p class="card-text p-3" th:utext="${#strings.replace(myRecipe.recipeDTO.description, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
+                        <p class="card-text p-3" th:utext="${#strings.replace(recipe.description, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
                     </div>
                 </div>
 
                 <div class="card-footer">
                     <div class="p-2">
-                        <button class="btn btn-primary" onclick="history.back();"> 확인 </button>
-                        <a href="#" th:href="@{/recipe/{memberId}/edit/{id} (memberId=${myRecipe.memberDTO.id}, id=${myRecipe.id})}" class="btn btn-secondary mx-2"> 수정 </a>
+                        <!--<button class="btn btn-primary" th:onclick="|location.href=/recipe/my/${selected}|"> 확인 </button>-->
+                        <button class="btn btn-primary" th:onclick="|location.href='@{/recipe/my/{selected} (selected=${selected})}'|"> 확인 </button>
+                        <a href="#" th:href="@{/recipe/my/edit/{id} (id=${recipe.id})}" class="btn btn-secondary mx-2"> 수정 </a>
                     </div>
                 </div>
             </div>
@@ -54,11 +55,6 @@
 
 
     <div th:replace="fragments/footer :: footer"></div>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/jquery/jquery.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
