@@ -2,6 +2,7 @@ package com.example.recipeWeb.controller;
 
 import com.example.recipeWeb.domain.dto.MemberDTO;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
+import com.example.recipeWeb.domain.enums.CategoryEnum;
 import com.example.recipeWeb.service.MemberService;
 import com.example.recipeWeb.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,22 @@ public class RecipeController {
     @GetMapping("/my/{cate}")
     public String myRecipe(@PathVariable("cate") String cate, Principal principal, Model model) {
         String username = principal.getName();
-
         List<RecipeDTO> myRecipes = recipeService.findAllMyRecipe(username);
+
+        if(!cate.equals("all")) {
+            CategoryEnum category =
+                    switch (cate) {
+                        case "ko" -> CategoryEnum.KOREAN;
+                        case "jp" -> CategoryEnum.JAPANESE;
+                        case "ch" -> CategoryEnum.CHINESE;
+                        case "we" -> CategoryEnum.WESTERN;
+                        default   -> CategoryEnum.OTHERS;
+                    };
+
+            myRecipes = myRecipes.stream()
+                    .filter(it -> it.getCategory() == category).toList();
+        }
+
 
         model.addAttribute("recipes", myRecipes);
         model.addAttribute("selected", cate);
