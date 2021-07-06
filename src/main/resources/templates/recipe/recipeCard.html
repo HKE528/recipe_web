@@ -8,14 +8,12 @@
             <div class="card-header">
                 <small class="text-muted" th:text="${recipe.username}">ID</small>
             </div>
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+            <a href="#" th:href="@{/recipe/my/view/{id} (id=${recipe.id}, selected=${selected})}">
+                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+            </a>
             <div class="card-body" style="height: 145px;">
                 <h3 class="card-title">
-                    <!--<a th:href="@{/recipe/my/view/{id} (id=${recipe.id})}" th:text="${recipe.name}">Item Name</a>-->
-                    <form th:action="@{/recipe/my/view/{id} (id=${recipe.id})}" method="get" id="viewForm">
-                        <input type="hidden" th:value="${selected}" name="selected">
-                        <a href="#" onclick="document.forms['viewForm'].submit()" th:text="${recipe.name}">제목</a>
-                    </form>
+                    <a href="#" th:href="@{/recipe/my/view/{id} (id=${recipe.id}, selected=${selected})}" th:text="${recipe.name}">제목</a>
                 </h3>
                 <h5 th:text="${recipe.category}">Category</h5>
                 <p th:text="${recipe.comment}" class="card-text">코멘트!</p>
