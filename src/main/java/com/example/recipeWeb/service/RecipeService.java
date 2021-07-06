@@ -5,6 +5,7 @@ import com.example.recipeWeb.domain.Recipe;
 import com.example.recipeWeb.domain.RecipeInfo;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
 import com.example.recipeWeb.domain.enums.CategoryEnum;
+import com.example.recipeWeb.domain.enums.OrderTypeEnum;
 import com.example.recipeWeb.repository.MemberRepository;
 import com.example.recipeWeb.repository.RecipeRepository;
 import javassist.NotFoundException;
@@ -12,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -45,7 +43,7 @@ public class RecipeService {
         return dtos;
     }
 
-    public List<RecipeDTO> findAllMyRecipe(String username) {
+    public List<RecipeDTO> findAllMyRecipe(String username, OrderTypeEnum orderType) {
         Optional<Member> member = memberRepository.findByUsername(username);
         List<RecipeDTO> recipes = new ArrayList<>();
 
@@ -56,6 +54,10 @@ public class RecipeService {
                 recipes.add(dto);
             }
         }
+
+        System.out.println(orderType);
+
+        if(orderType != OrderTypeEnum.OLDER)    recipes = sortByType(recipes, orderType);
 
         return recipes;
     }
@@ -111,4 +113,12 @@ public class RecipeService {
 
         recipe.setShareable(shareable);
     }
+
+    private List<RecipeDTO> sortByType(List<RecipeDTO> list, OrderTypeEnum type) {
+
+        return type == OrderTypeEnum.NAME?
+                list.stream().sorted(Comparator.comparing(RecipeDTO::getName)).toList() :
+                list.stream().sorted(Comparator.comparing(RecipeDTO::getDate).reversed()).toList();
+    }
+
 }

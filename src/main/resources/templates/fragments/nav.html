@@ -4,8 +4,8 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="menu(menu)">
     <a class="navbar-brand" href="#">Recipe Store</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -35,17 +35,20 @@
 
 <div class="d-flex justify-content-end border-bottom" th:fragment="searchBar(target)">
     <div class="form-check form-check-inline mt-2">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="orderByName" value="name">
+        <input class="form-check-input" type="radio" name="orderRadioOptions" id="orderByName" value="name"
+               th:checked="${#strings.equals(orderType, 'NAME')}">
         <label class="form-check-label" for="orderByName">이름 순</label>
     </div>
 
     <div class="form-check form-check-inline mt-2">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="orderByLatest" value="latest">
+        <input class="form-check-input" type="radio" name="orderRadioOptions" id="orderByLatest" value="latest"
+               th:checked="${#strings.equals(orderType, 'LATEST')}">
         <label class="form-check-label" for="orderByLatest">최근 추가된 순</label>
     </div>
 
     <div class="form-check form-check-inline mt-2">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="orderByOlder" value="older" checked>
+        <input class="form-check-input" type="radio" name="orderRadioOptions" id="orderByOlder" value="older"
+               th:checked="${#strings.equals(orderType, 'OLDER')}">
         <label class="form-check-label" for="orderByOlder">먼저 추가된 순</label>
     </div>
 
@@ -53,13 +56,13 @@
         <input type="hidden" th:value="${target}" name="target">
 
         <div class="col-auto">
-            <input type="text" class="form-control" id="searchText", name="searchText"
-                   placeholder="검색어를 입력하세요" th:value="${param.searchText}">
+            <input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색어를 입력하세요" th:value="${param.searchText}">
         </div>
 
         <div class="col-auto">
             <button type="submit" class="btn btn-outline-secondary mb-3">검색</button>
         </div>
-
     </form>
+
+
 </div>

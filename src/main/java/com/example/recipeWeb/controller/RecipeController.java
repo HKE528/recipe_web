@@ -3,6 +3,7 @@ package com.example.recipeWeb.controller;
 import com.example.recipeWeb.domain.dto.MemberDTO;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
 import com.example.recipeWeb.domain.enums.CategoryEnum;
+import com.example.recipeWeb.domain.enums.OrderTypeEnum;
 import com.example.recipeWeb.service.MemberService;
 import com.example.recipeWeb.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -26,10 +29,11 @@ public class RecipeController {
     @GetMapping("/my/{cate}")
     public String myRecipe(@PathVariable("cate") String cate,
                            @RequestParam(value = "searchText", defaultValue = "") String searchText,
+                           @RequestParam(value = "orderType", defaultValue = "OLDER") OrderTypeEnum orderType,
                            Principal principal, Model model) {
 
         String username = principal.getName();
-        List<RecipeDTO> myRecipes = recipeService.findAllMyRecipe(username);
+        List<RecipeDTO> myRecipes = recipeService.findAllMyRecipe(username, orderType);
 
         if (!cate.equals("all")) {
             myRecipes = recipeService.category(cate, myRecipes);
@@ -41,6 +45,7 @@ public class RecipeController {
 
         model.addAttribute("recipes", myRecipes);
         model.addAttribute("selected", cate);
+        model.addAttribute("orderType", orderType);
 
         return "recipe/myRecipe";
     }
@@ -129,5 +134,20 @@ public class RecipeController {
         redirect.addAttribute("searchText", searchText);
 
         return action;
+    }
+
+    @RequestMapping("/order")
+    public String order(@RequestParam("radio") String radio, @RequestParam("cate") String cate,
+                        RedirectAttributes redirect) {
+
+        OrderTypeEnum type = switch (radio) {
+            case "name"   -> OrderTypeEnum.NAME;
+            case "latest" -> OrderTypeEnum.LATEST;
+            default       -> OrderTypeEnum.OLDER;
+        };
+
+        redirect.addAttribute("orderType", type);
+
+        return "redirect:/recipe/my/" + cate;
     }
 }
