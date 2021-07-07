@@ -61,7 +61,7 @@ public class RecipeDTO {
     }
 
     public static RecipeDTO generateDTO(Recipe recipe) {
-        return new RecipeDTO(
+        RecipeDTO recipeDTO = new RecipeDTO(
                 recipe.getId(),
                 recipe.getName(),
                 recipe.getIngredient(),
@@ -73,5 +73,8 @@ public class RecipeDTO {
                 recipe.getRecipeInfo().getView(),
                 recipe.getRecipeInfo().getShared()
         );
+        recipeDTO.setUsername(recipe.getMember().getUsername());
+
+        return recipeDTO;
     }
 }
