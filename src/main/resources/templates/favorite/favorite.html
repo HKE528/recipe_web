@@ -17,7 +17,7 @@
 
             <div class="col-lg-3">
 
-                <h1 class="my-4">내 레시피</h1>
+                <h1 class="my-4">위시리스트</h1>
 
                 <div class="list-group pb-3">
                     <a th:href="@{/recipe/my/{cate} (cate='all')}" class="list-group-item" th:classappend="${selected} == 'all' ? 'active'">전체</a>
@@ -28,12 +28,6 @@
                     <a th:href="@{/recipe/my/{cate} (cate='ot')}" class="list-group-item" th:classappend="${selected} == 'ot' ? 'active'">기타</a>
                 </div>
 
-<!--
-                <div class="d-grid gap-2">
-                    <a th:href="@{/recipe/my/add}" class="btn btn-success btn-lg">+</a>
-                </div>
--->
-
             </div>
 
 
@@ -42,7 +36,7 @@
             <div class="col-lg-9">
                 <div class="row">
 
-                    <div th:replace="recipe/recipeCard :: recipeCard" />
+                    <div th:replace="favorite/favoriteRecipeCard :: recipeCard" />
 
                 </div>
                 <!-- /.row -->
@@ -67,7 +61,6 @@
             location.href = "/recipe/order?radio=" + radioValue + "&cate=" + selected;
         });
     </script>
-
 </body>
 
 </html>
