@@ -20,12 +20,12 @@
                 <h1 class="my-4">위시리스트</h1>
 
                 <div class="list-group pb-3">
-                    <a th:href="@{/recipe/my/{cate} (cate='all')}" class="list-group-item" th:classappend="${selected} == 'all' ? 'active'">전체</a>
-                    <a th:href="@{/recipe/my/{cate} (cate='ko')}" class="list-group-item" th:classappend="${selected} == 'ko' ? 'active'">한식</a>
-                    <a th:href="@{/recipe/my/{cate} (cate='jp')}" class="list-group-item" th:classappend="${selected} == 'jp' ? 'active'">일식</a>
-                    <a th:href="@{/recipe/my/{cate} (cate='ch')}" class="list-group-item" th:classappend="${selected} == 'ch' ? 'active'">중식</a>
-                    <a th:href="@{/recipe/my/{cate} (cate='we')}" class="list-group-item" th:classappend="${selected} == 'we' ? 'active'">양식</a>
-                    <a th:href="@{/recipe/my/{cate} (cate='ot')}" class="list-group-item" th:classappend="${selected} == 'ot' ? 'active'">기타</a>
+                    <a th:href="@{/favorite/{cate} (cate='all')}" class="list-group-item" th:classappend="${selected} == 'all' ? 'active'">전체</a>
+                    <a th:href="@{/favorite/{cate} (cate='ko')}" class="list-group-item" th:classappend="${selected} == 'ko' ? 'active'">한식</a>
+                    <a th:href="@{/favorite/{cate} (cate='jp')}" class="list-group-item" th:classappend="${selected} == 'jp' ? 'active'">일식</a>
+                    <a th:href="@{/favorite/{cate} (cate='ch')}" class="list-group-item" th:classappend="${selected} == 'ch' ? 'active'">중식</a>
+                    <a th:href="@{/favorite/{cate} (cate='we')}" class="list-group-item" th:classappend="${selected} == 'we' ? 'active'">양식</a>
+                    <a th:href="@{/favorite/{cate} (cate='ot')}" class="list-group-item" th:classappend="${selected} == 'ot' ? 'active'">기타</a>
                 </div>
 
             </div>
@@ -58,7 +58,7 @@
             var radioValue = $(this).val();
             var selected = [[${selected}]];
 
-            location.href = "/recipe/order?radio=" + radioValue + "&cate=" + selected;
+            location.href = "/favorite/order?radio=" + radioValue + "&cate=" + selected;
         });
     </script>
 </body>
