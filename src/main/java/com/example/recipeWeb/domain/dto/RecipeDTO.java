@@ -27,6 +27,7 @@ public class RecipeDTO {
     private String comment;
 
     private boolean shareable = false;
+    private boolean isFavorite = false;
 
     private String username;
 

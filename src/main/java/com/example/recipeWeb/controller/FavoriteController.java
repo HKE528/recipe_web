@@ -23,8 +23,8 @@ public class FavoriteController {
     private final RecipeService recipeService;
     private final FavoriteService favoriteService;
 
-    @GetMapping("/my/{cate}")
-    public String myRecipe(@PathVariable("cate") String cate,
+    @GetMapping("/{cate}")
+    public String myFavorite(@PathVariable("cate") String cate,
                            @RequestParam(value = "searchText", defaultValue = "") String searchText,
                            @RequestParam(value = "orderType", defaultValue = "OLDER") OrderTypeEnum orderType,
                            Principal principal, Model model) {
@@ -44,6 +44,6 @@ public class FavoriteController {
         model.addAttribute("selected", cate);
         model.addAttribute("orderType", orderType);
 
-        return "favorite/myFavorite";
+        return "favorite/favorite";
     }
 }

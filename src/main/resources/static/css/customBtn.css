@@ -1,0 +1,11 @@
+.btn-non-border-like {
+    color: #dc3545;
+    border: none;
+    outline:none;
+}
+
+.btn-like {
+    color: #dc3545;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}

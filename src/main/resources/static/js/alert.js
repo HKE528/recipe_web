@@ -6,6 +6,14 @@ function confirmDeleteRecipe(recipeId){
     }
 }
 
+function confirmDeleteFavorite(recipeId){
+    var resp = confirm("정말로 보관함에서 삭제할까요?");
+
+    if(resp) {
+        location.href="/favorite/my/delete/"+ recipeId;
+    }
+}
+
 function confirmDeleteMember(){
     var resp = confirm("정말로 탈퇴 하시겠습니까?");
 
@@ -13,7 +21,7 @@ function confirmDeleteMember(){
         location.href="/member/drop";
     }
 }
-confirmNotShardRecipe
+
 function confirmShardRecipe(recipeId, selected){
     var resp = confirm("정말로 공유 하시겠습니까?");
 

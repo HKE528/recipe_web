@@ -1,11 +1,13 @@
 package com.example.recipeWeb.service;
 
+import com.example.recipeWeb.domain.Favorite;
 import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.Recipe;
 import com.example.recipeWeb.domain.RecipeInfo;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
 import com.example.recipeWeb.domain.enums.CategoryEnum;
 import com.example.recipeWeb.domain.enums.OrderTypeEnum;
+import com.example.recipeWeb.repository.FavoriteRepository;
 import com.example.recipeWeb.repository.MemberRepository;
 import com.example.recipeWeb.repository.RecipeRepository;
 import javassist.NotFoundException;
@@ -27,20 +29,6 @@ public class RecipeService {
 
         RecipeDTO recipeDTO = RecipeDTO.generateDTO(recipe);
         return recipeDTO;
-    }
-
-    public List<RecipeDTO> findAllShardRecipe(String searchText) {
-//        List<Recipe> recipes = recipeRepository.findByShareable(true);
-        List<Recipe> recipes = recipeRepository.findByShareableAndNameContaining(true, searchText);
-        List<RecipeDTO> dtos = new ArrayList<>();
-
-        for(Recipe recipe : recipes) {
-            RecipeDTO dto = RecipeDTO.generateDTO(recipe);
-            dto.setUsername(recipe.getMember().getUsername());
-            dtos.add(dto);
-        }
-
-        return dtos;
     }
 
     public List<RecipeDTO> findAllShardRecipe(String searchText, OrderTypeEnum type) {

@@ -33,6 +33,14 @@ public class FavoriteService {
         favoriteRepository.save(favorite);
     }
 
+    public void deleteFavorite(Long recipeId, String username) {
+        Member member = memberRepository.findByUsername(username).get();
+
+        Favorite favorite = favoriteRepository.findByRecipeIdAndMemberId(recipeId, member.getId()).get();
+
+        favoriteRepository.delete(favorite);
+    }
+
     public List<FavoriteDTO> findMyFavorite(String username) {
         List<Favorite> favorites = memberRepository.findByUsername(username).get().getFavorites();
         List<FavoriteDTO> dtos = new ArrayList<>();
@@ -49,5 +57,17 @@ public class FavoriteService {
         }
 
         return dtos;
+    }
+
+    public List<Long> findMyFavoriteId(String username) {
+        List<Favorite> favorites = memberRepository.findByUsername(username).get().getFavorites();
+
+        List<Long> ids = new ArrayList<>();
+
+        for(Favorite favorite : favorites) {
+            ids.add(favorite.getRecipe().getId());
+        }
+
+        return ids;
     }
 }
