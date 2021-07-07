@@ -121,6 +121,6 @@ public class RecipeService {
 
         return type == OrderTypeEnum.NAME?
                 list.stream().sorted(Comparator.comparing(RecipeDTO::getName)).toList() :
-                list.stream().sorted(Comparator.comparing(RecipeDTO::getDate).reversed()).toList();
+                list.stream().sorted(Comparator.comparing(RecipeDTO::getDate)).toList();
     }
 }
