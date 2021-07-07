@@ -74,12 +74,14 @@ public class RecipeController {
     }
 
     @GetMapping("/my/view/{id}")
-    public String view(@PathVariable("id") Long id, @RequestParam(value = "selected", defaultValue = "all") String selected, Model model) {
+    public String view(@PathVariable("id") Long id, @RequestParam(value = "selected", defaultValue = "all") String selected,
+                       @RequestParam(value = "dest", defaultValue = "my") String dest, Model model) {
         RecipeDTO recipe = recipeService.findRecipe(id);
 
         model.addAttribute("recipe", recipe);
         model.addAttribute("nlString", System.getProperty("line.separator"));
         model.addAttribute("selected", selected);
+        model.addAttribute("dest", dest);
 
         return "recipe/showMyRecipe";
     }
@@ -128,7 +130,7 @@ public class RecipeController {
         action += switch (target) {
             case "home"     -> "home/all";
             case "myrecipe" -> "recipe/my/all";
-            default         -> "favorite/my/all";
+            default         -> "favorite/all";
         };
 
         redirect.addAttribute("searchText", searchText);

@@ -10,9 +10,11 @@ import com.example.recipeWeb.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -59,5 +61,15 @@ public class HomeController {
         model.addAttribute("orderType", orderType);
 
         return "home";
+    }
+
+    @GetMapping("/home/view/{id}")
+    public String view(@PathVariable("id") Long id, @RequestParam(value = "selected",
+            defaultValue = "all") String selected, RedirectAttributes redirect) {
+
+        redirect.addAttribute("selected", selected);
+        redirect.addAttribute("dest", "home");
+
+        return "redirect:/recipe/my/view/" + id;
     }
 }
