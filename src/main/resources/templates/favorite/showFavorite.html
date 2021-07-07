@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>Home!</title>
+
+</head>
+
+<style>
+    .padding-0 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+</style>
+
+<body style="background-color: #EAEAEA;">
+<div th:replace="fragments/nav :: nav('favorite')" />
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row no-gutters justify-content-center align-items-center">
+            <div class="card col-6 px-0">
+                <div class="card-header">
+                    <h2 th:text="${favorite.recipe.name}">레시피 이름</h2>
+                    <h5 th:text="${favorite.recipe.category}">카테고리</h5>
+                </div>
+                <div class="card-body">
+                    <div class="p-2">
+                        <h5 class="card-title pb-2 border-bottom">설명</h5>
+                        <p class="card-text p-3" th:utext="${#strings.replace(favorite.recipe.comment, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
+                    </div>
+
+                    <div class="p-2 mt-2">
+                        <h5 class="card-title pb-2 border-bottom">재료</h5>
+                        <p class="card-text p-3" th:utext="${#strings.replace(favorite.recipe.ingredient, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
+                    </div>
+
+                    <div class="p-2 mt-2">
+                        <h5 class="card-title pb-2 border-bottom">레시피</h5>
+                        <p class="card-text p-3" th:utext="${#strings.replace(favorite.recipe.description, nlString, '&lt;br /&gt;')}">컨텐츠 내용</p>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="p-2">
+                        <!--<button class="btn btn-primary" th:onclick="|location.href=/recipe/my/${selected}|"> 확인 </button>-->
+                        <button class="btn btn-primary" th:onclick="|location.href='@{/favorite/{selected} (selected=${selected})}'|"> 확인 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>
