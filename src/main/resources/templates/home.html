@@ -61,38 +61,7 @@
             location.href = "/home/" + selected + "?radio=" + radioValue;
         });
 
-        function addFavorite(id) {
-            //put /favorite/add/{id}
 
-            var name = [[${selected}]];
-
-            $.ajax({
-                url: '/favorite/add/' + id,
-                type: 'PUT',
-                dataType: "text",
-                data: { username : name },
-                success: function() {
-                    location.reload();
-                },
-                error: function() {
-                    location.href = "/member/login";
-                }
-            });
-        }
-
-        function deleteFavorite(id) {
-            //Delete /favorite/delete/{id}
-            $.ajax({
-                url: '/favorite/delete/' + id,
-                type: 'DELETE',
-                success: function() {
-                    location.reload();
-                },
-                error: function() {
-                    location.href = "/member/login";
-                }
-            });
-        }
     </script>
 </body>
 
