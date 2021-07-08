@@ -21,7 +21,7 @@ import java.util.*;
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final MemberRepository memberRepository;
-    //private final FileService fileService;
+    private final FileService fileService;
 
     public RecipeDTO findRecipe(Long id) {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(NoSuchElementException::new);
@@ -60,8 +60,8 @@ public class RecipeService {
                 RecipeDTO dto = RecipeDTO.generateDTO(recipe);
                 dto.setUsername(recipe.getMember().getUsername());
 
-                //String filepath = fileService.findFile(username, dto.getId());
-                //dto.setImgPath(filepath);
+//                String filepath = fileService.findFile(username, dto.getId());
+//                dto.setImgPath(filepath);
 
                 recipes.add(dto);
             }
@@ -87,8 +87,8 @@ public class RecipeService {
     public Long saveRecipe(RecipeDTO dto, MultipartFile file){
         Long saved = saveRecipe(dto);
 
-//        if(file != null && !file.isEmpty())
-//            fileService.saveFile(dto.getUsername(), saved, file);
+        if(file != null && !file.isEmpty())
+            fileService.saveFile(dto.getUsername(), saved, file);
 
         return saved;
     }
