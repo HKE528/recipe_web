@@ -27,7 +27,7 @@ public class RecipeService {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
         RecipeDTO recipeDTO = RecipeDTO.generateDTO(recipe);
-//        recipeDTO.setImgPath(fileService.findFile(recipeDTO.getUsername(), id));
+        recipeDTO.setFilename(fileService.findFile(recipeDTO.getUsername(), id));
 
         return recipeDTO;
     }
@@ -37,11 +37,13 @@ public class RecipeService {
         List<RecipeDTO> dtos = new ArrayList<>();
 
         for(Recipe recipe : recipes) {
-            RecipeDTO dto = RecipeDTO.generateDTO(recipe);
-            dto.setUsername(recipe.getMember().getUsername());
+            String username = recipe.getMember().getUsername();
 
-//            String filepath = fileService.findFile(dto.getUsername(), dto.getId());
-//            dto.setImgPath(filepath);
+            RecipeDTO dto = RecipeDTO.generateDTO(recipe);
+            dto.setUsername(username);
+
+            String filename = fileService.findFile(username, dto.getId());
+            dto.setFilename(filename);
 
             dtos.add(dto);
         }

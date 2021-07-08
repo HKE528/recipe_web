@@ -52,7 +52,10 @@ public class HomeController {
 
             recipes.forEach(
                     it -> {
-                        if(myFavoriteId.contains(it.getId())) it.setFavorite(true);
+                        //if(myFavoriteId.contains(it.getId())) it.setFavorite(true);
+                        for(Long id: myFavoriteId) {
+                            if(it.getId().equals(id))    it.setFavorite(true);
+                        }
                     });
         }
 

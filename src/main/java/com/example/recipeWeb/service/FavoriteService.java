@@ -26,6 +26,7 @@ public class FavoriteService {
     private final MemberRepository memberRepository;
     private final RecipeRepository recipeRepository;
     private final FavoriteRepository favoriteRepository;
+    private final FileService fileService;
 
     public void saveFavorite(String username, Long recipeId) {
         Member member = memberRepository.findByUsername(username).orElse(null);
@@ -69,6 +70,9 @@ public class FavoriteService {
         for (Favorite favorite : favorites) {
             Recipe recipe = favorite.getRecipe();
             RecipeDTO recipeDTO = RecipeDTO.generateDTO(recipe);
+
+            String filename = fileService.findFile(recipeDTO.getUsername(), recipeDTO.getId());
+            recipeDTO.setFilename(filename);
 
             dtos.add(new FavoriteDTO(
                     favorite.getId(),

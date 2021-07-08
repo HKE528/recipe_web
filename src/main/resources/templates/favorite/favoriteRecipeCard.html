@@ -3,14 +3,20 @@
 
 <!--<div class="recipeCard" th:fragment="recipeCard">-->
 <th:block th:if="${#lists.size('recipes') != 0}" th:each="favorite : ${favorites}" th:fragment="recipeCard">
-    <div class="col-lg-4 col-md-4 mb-4 mt-3">
+    <div class="col-lg-4 col-md-4 mb-4 mt-3" style="height: 400px;">
         <div class="card h-100">
             <div class="card-header">
                 <small class="text-muted" th:text="${favorite.recipe.username}">ID</small>
             </div>
-            <a href="#" th:href="@{/favorite/view/{id} (id=${favorite.recipe.id}, selected=${selected})}">
-                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
-            </a>
+
+            <div style="width: 100%; height: 43%;">
+                <a href="#" th:href="@{/favorite/view/{id} (id=${favorite.recipe.id}, selected=${selected})}">
+                    <img th:if="${#strings.isEmpty(favorite.recipe.filename)}" class="card-img-top h-100" src="http://placehold.it/700x400" alt="">
+                    <img th:unless="${#strings.isEmpty(favorite.recipe.filename)}" class="card-img-top h-100"
+                         th:src="|@{/images/{name}/{file} (name=${favorite.recipe.username}, file=${favorite.recipe.filename})}|">
+                </a>
+            </div>
+
             <div class="card-body" style="height: 145px;">
                 <h3 class="card-title">
                     <a href="#" th:href="@{/favorite/view/{id} (id=${favorite.recipe.id}, selected=${selected})}" th:text="${favorite.recipe.name}">제목</a>
