@@ -27,3 +27,6 @@ logging.level:
   org.hibernate.type: trace
 
 custom:
+  path:
+    images:
+      location: file:///C:/ServerRepo/RecipeStore/image/recipe/
