@@ -1,19 +1,17 @@
 package com.example.recipeWeb.service;
 
-import com.example.recipeWeb.domain.Favorite;
 import com.example.recipeWeb.domain.Member;
 import com.example.recipeWeb.domain.Recipe;
 import com.example.recipeWeb.domain.RecipeInfo;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
 import com.example.recipeWeb.domain.enums.CategoryEnum;
 import com.example.recipeWeb.domain.enums.OrderTypeEnum;
-import com.example.recipeWeb.repository.FavoriteRepository;
 import com.example.recipeWeb.repository.MemberRepository;
 import com.example.recipeWeb.repository.RecipeRepository;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -23,11 +21,14 @@ import java.util.*;
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final MemberRepository memberRepository;
+    //private final FileService fileService;
 
     public RecipeDTO findRecipe(Long id) {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
         RecipeDTO recipeDTO = RecipeDTO.generateDTO(recipe);
+//        recipeDTO.setImgPath(fileService.findFile(recipeDTO.getUsername(), id));
+
         return recipeDTO;
     }
 
@@ -38,6 +39,10 @@ public class RecipeService {
         for(Recipe recipe : recipes) {
             RecipeDTO dto = RecipeDTO.generateDTO(recipe);
             dto.setUsername(recipe.getMember().getUsername());
+
+//            String filepath = fileService.findFile(dto.getUsername(), dto.getId());
+//            dto.setImgPath(filepath);
+
             dtos.add(dto);
         }
 
@@ -54,11 +59,13 @@ public class RecipeService {
             for (Recipe recipe : member.get().getRecipes()) {
                 RecipeDTO dto = RecipeDTO.generateDTO(recipe);
                 dto.setUsername(recipe.getMember().getUsername());
+
+                //String filepath = fileService.findFile(username, dto.getId());
+                //dto.setImgPath(filepath);
+
                 recipes.add(dto);
             }
         }
-
-        System.out.println(orderType);
 
         if(orderType != OrderTypeEnum.OLDER)    recipes = sortByType(recipes, orderType);
 
@@ -77,9 +84,20 @@ public class RecipeService {
         return saved.getId();
     }
 
+    public Long saveRecipe(RecipeDTO dto, MultipartFile file){
+        Long saved = saveRecipe(dto);
+
+//        if(file != null && !file.isEmpty())
+//            fileService.saveFile(dto.getUsername(), saved, file);
+
+        return saved;
+    }
+
     //삭제
     public void deleteRecipe(Long id) {
         Recipe recipe = recipeRepository.findById(id).orElse(null);
+
+//        fileService.deleteFile(recipe.getMember().getUsername(), id);
 
         recipeRepository.delete(recipe);
     }
@@ -89,6 +107,12 @@ public class RecipeService {
         Recipe recipe = recipeRepository.findById(dto.getId()).orElse(null);
 
         recipe.changeData(dto);
+    }
+
+    public void updateRecipe(RecipeDTO dto, MultipartFile mFile) {
+//        fileService.updateFile(dto.getUsername(), dto.getId(), mFile);
+
+        updateRecipe(dto);
     }
 
     //분류

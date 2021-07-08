@@ -10,6 +10,8 @@
             </div>
             <a href="#" th:href="@{/recipe/my/view/{id} (id=${recipe.id}, selected=${selected})}">
                 <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+<!--                <img class="card-img-top" th:src="@{/upload/test/1.jpg}" th:alt="@{http://placehold.it/700x400}">-->
+<!--                <img class="card-img-top" th:src="@{/upload/{name}/{id} (name=${recipe.username}, id=${recipe.id})}" th:alt="@{http://placehold.it/700x400}">-->
             </a>
             <div class="card-body" style="height: 145px;">
                 <h3 class="card-title">

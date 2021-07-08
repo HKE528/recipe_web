@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.Valid;
+import java.nio.file.FileSystemException;
 import java.security.Principal;
 import java.util.List;
 
@@ -43,6 +45,10 @@ public class RecipeController {
             myRecipes = recipeService.search(searchText, myRecipes);
         }
 
+//        myRecipes.forEach(it -> {
+//            System.out.println(it.getId() + " : " + it.getImgPath());
+//        });
+
         model.addAttribute("recipes", myRecipes);
         model.addAttribute("selected", cate);
         model.addAttribute("orderType", orderType);
@@ -58,7 +64,8 @@ public class RecipeController {
     }
 
     @PostMapping("/my/add")
-    public String addRecipe(@Valid RecipeDTO dto, Principal principal, BindingResult result) {
+    public String addRecipe(@Valid RecipeDTO dto, Principal principal, BindingResult result,
+                            @RequestPart(value = "file", required = false) MultipartFile file) {
 
         if (result.hasErrors()) {
 
@@ -68,7 +75,7 @@ public class RecipeController {
         String username = principal.getName();
         dto.setUsername(username);
 
-        recipeService.saveRecipe(dto);
+        Long recipeId = recipeService.saveRecipe(dto, file);
 
         return "redirect:/recipe/my/all";
     }
@@ -96,8 +103,8 @@ public class RecipeController {
     }
 
     @PostMapping("/my/edit/{id}")
-    public String edit(@PathVariable("id") Long id, RecipeDTO dto) {
-        recipeService.updateRecipe(dto);
+    public String edit(@PathVariable("id") Long id, RecipeDTO dto,  @RequestPart(value = "file", required = false) MultipartFile file) {
+        recipeService.updateRecipe(dto, file);
 
         return "redirect:/recipe/my/view/" + id;
     }

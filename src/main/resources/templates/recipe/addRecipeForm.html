@@ -17,9 +17,9 @@
 
     <!-- Page Content -->
     <div class="container">
-        <div class="col-lg-6 p-4 center-block border border-info" style="margin: auto; background-color: #BDBDBD;">
+        <div class="col-lg-8 p-4 center-block border border-info" style="margin: auto; background-color: #BDBDBD;">
             <h2 class="pb-3"> 레시피 작성 </h2>
-            <form th:action="@{/recipe/my/add}" th:object="${dto}" method="post">
+            <form th:action="@{/recipe/my/add}" th:object="${dto}" method="post" enctype="multipart/form-data">
                 <div class="form-group mt-2">
                     <label th:for="name">요리 명</label>
                     <input type="text" class="form-control" th:field="*{name}" placeholder="요리명을 입력하세요." required="required">
@@ -27,12 +27,12 @@
                 <div class="form-group mt-3">
                     <label th:for="category">카테고리</label>
                     <select class="form-control" th:field="*{category}">
-            <option value="KOREAN">한식</option>
-            <option value="JAPANESE">일식</option>
-            <option value="CHINESE">중식</option>
-            <option value="WESTERN">양식</option>
-            <option value="OTHERS">기타</option>
-          </select>
+                        <option value="KOREAN">한식</option>
+                        <option value="JAPANESE">일식</option>
+                        <option value="CHINESE">중식</option>
+                        <option value="WESTERN">양식</option>
+                        <option value="OTHERS">기타</option>
+                    </select>
                 </div>
                 <div class="form-group mt-3">
                     <label th:for="comment">소개</label>
@@ -47,6 +47,15 @@
                     <label th:for="description">레시피</label>
                     <textarea class="form-control" th:field="*{description}" rows="15" placeholder="한줄씩 구분해 주세요" required="required"></textarea>
                 </div>
+
+                <div class="form-group mt-3">
+                    <label th:for="images">사진</label>
+                    <input type="file" class="form-control" name="file" onchange="previewImage(this,'viewArea')"
+                           accept="image/jpeg, image/jpg, image/png, image/gif">
+                </div>
+
+                <div class="d-flex justify-content-center mt-3" id="viewArea"></div>
+
                 <button type="submit" class="btn btn-primary mt-3">작성</button>
                 <button type="button" class="btn btn-secondary mt-3" onclick="history.back();">취소</button>
             </form>

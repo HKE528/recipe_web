@@ -1,15 +1,10 @@
 package com.example.recipeWeb.service;
 
-import com.example.recipeWeb.domain.Category;
-import com.example.recipeWeb.domain.Recipe;
 import com.example.recipeWeb.domain.dto.MemberDTO;
 import com.example.recipeWeb.domain.dto.RecipeDTO;
 import com.example.recipeWeb.domain.enums.CategoryEnum;
-import com.example.recipeWeb.repository.RecipeRepository;
 import javassist.bytecode.DuplicateMemberException;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

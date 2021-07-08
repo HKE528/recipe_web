@@ -36,6 +36,8 @@ public class RecipeDTO {
     private int view = 0;
     private int shared = 0;
 
+    private String imgPath;
+
     public RecipeDTO() {
     }
 
