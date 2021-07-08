@@ -25,6 +25,16 @@
                     <h2 th:text="${favorite.recipe.name}">레시피 이름</h2>
                     <h5 th:text="${favorite.recipe.category}">카테고리</h5>
                 </div>
+
+                <!--<div style="width: 100%; height: 43%;">-->
+                <div>
+                    <a href="#" th:href="@{/recipe/my/view/{id} (id=${recipe.id}, selected=${selected})}">
+                        <img th:if="${#strings.isEmpty(recipe.filename)}" class="card-img-top h-100" src="http://placehold.it/700x400" alt="">
+                        <img th:unless="${#strings.isEmpty(favorite.recipe.filename)}" class="card-img-top h-100"
+                             th:src="|@{/images/{name}/{id} (name=${favorite.recipe.username}, id=${recipe.filename})}|">
+                    </a>
+                </div>
+
                 <div class="card-body">
                     <div class="p-2">
                         <h5 class="card-title pb-2 border-bottom">설명</h5>
