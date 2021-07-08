@@ -4,15 +4,17 @@
 <!--<div class="recipeCard" th:fragment="recipeCard">-->
 <th:block th:if="${#lists.size('recipes') != 0}" th:each="recipe : ${recipes}" th:fragment="recipeCard">
     <div class="col-lg-4 col-md-4 mb-4 mt-3">
-        <div class="card h-100">
+        <div class="card h-auto" style="height: 20rem;">
             <div class="card-header">
                 <small class="text-muted" th:text="${recipe.username}">ID</small>
             </div>
+
             <a href="#" th:href="@{/recipe/my/view/{id} (id=${recipe.id}, selected=${selected})}">
-                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
-<!--                <img class="card-img-top" th:src="@{/upload/test/1.jpg}" th:alt="@{http://placehold.it/700x400}">-->
-<!--                <img class="card-img-top" th:src="@{/upload/{name}/{id} (name=${recipe.username}, id=${recipe.id})}" th:alt="@{http://placehold.it/700x400}">-->
+                <img th:if="${#strings.isEmpty(recipe.filename)}" class="card-img-top" src="http://placehold.it/700x400" alt="">
+                <img th:unless="${#strings.isEmpty(recipe.filename)}" class="card-img-top h-auto"
+                     th:src="|@{/images/{name}/{id} (name=${recipe.username}, id=${recipe.filename})}|">
             </a>
+
             <div class="card-body" style="height: 145px;">
                 <h3 class="card-title">
                     <a href="#" th:href="@{/recipe/my/view/{id} (id=${recipe.id}, selected=${selected})}" th:text="${recipe.name}">제목</a>

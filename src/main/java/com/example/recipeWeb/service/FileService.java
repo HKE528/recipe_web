@@ -42,46 +42,27 @@ public class FileService {
 
     public String findFile(String username, Long recipeId) {
         String basePath = path + username;
-        String filePath = "";
+        String fullName = "";
 
         File div = new File(basePath);
-        if (!div.exists()) {
-            filePath = "";
-        } else {
+        if(div.exists() && div.listFiles().length != 0 ) {
             File[] files = div.listFiles();
 
             for(File file : files) {
-
-                String fullName = file.getName();
-                String filename = fullName.split("\\.")[0];
-
-                if(filename == recipeId.toString()) {
-                    filePath = basePath + "/" + filename;
-
-                    break;
-                }
-            }
-        }
-
-        if(div.exists()) {
-            File[] files = div.listFiles();
-
-            for(File file : files) {
-
-                String fullName = file.getName();
-                String filename = fullName.split("\\.")[0];
+                String filename = file.getName().split("\\.")[0];
 
                 if(filename.equals(recipeId.toString())) {
-                    filePath = basePath + "/" + fullName;
-
+                    fullName = file.getName();
                     break;
+                } else {
+                    fullName = "";
                 }
             }
         }
 
-        System.out.println("filePath : " + filePath);
+        System.out.println("fullName : " + fullName);
 
-        return filePath;
+        return fullName;
     }
 
 //    public boolean deleteFile(String username, Long recipeId) {

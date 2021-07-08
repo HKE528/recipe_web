@@ -60,8 +60,8 @@ public class RecipeService {
                 RecipeDTO dto = RecipeDTO.generateDTO(recipe);
                 dto.setUsername(recipe.getMember().getUsername());
 
-//                String filepath = fileService.findFile(username, dto.getId());
-//                dto.setImgPath(filepath);
+                String filename = fileService.findFile(username, dto.getId());
+                dto.setFilename(filename);
 
                 recipes.add(dto);
             }
