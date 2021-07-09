@@ -5,7 +5,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 @Getter
 @Table(name = "tb_category")
 public class Category {
