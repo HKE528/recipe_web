@@ -15,7 +15,7 @@ public class FavoriteAPI {
 
     @PutMapping("/add/{id}")
     public void add(@PathVariable("id") Long recipeId, Principal principal) {
-        System.out.println(principal.getName());
+        //System.out.println(principal.getName());
 
         favoriteService.saveFavorite(principal.getName(), recipeId);
     }

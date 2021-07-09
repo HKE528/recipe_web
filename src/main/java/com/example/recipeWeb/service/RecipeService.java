@@ -115,7 +115,7 @@ public class RecipeService {
         if(mFile != null) {
             fileService.updateFile(dto.getUsername(), dto.getId(), mFile);
 
-            System.out.println("do update image");
+            //System.out.println("do update image");
         }
 
         updateRecipe(dto);

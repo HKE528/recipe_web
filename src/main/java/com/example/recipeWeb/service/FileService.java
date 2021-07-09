@@ -60,7 +60,7 @@ public class FileService {
             }
         }
 
-        System.out.println("fullName : " + fullName);
+        //System.out.println("fullName : " + fullName);
 
         return fullName;
     }
