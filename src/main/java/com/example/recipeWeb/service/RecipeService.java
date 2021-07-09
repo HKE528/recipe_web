@@ -99,7 +99,7 @@ public class RecipeService {
     public void deleteRecipe(Long id) {
         Recipe recipe = recipeRepository.findById(id).orElse(null);
 
-//        fileService.deleteFile(recipe.getMember().getUsername(), id);
+        fileService.deleteFile(recipe.getMember().getUsername(), id);
 
         recipeRepository.delete(recipe);
     }
@@ -112,7 +112,7 @@ public class RecipeService {
     }
 
     public void updateRecipe(RecipeDTO dto, MultipartFile mFile) {
-//        fileService.updateFile(dto.getUsername(), dto.getId(), mFile);
+        fileService.updateFile(dto.getUsername(), dto.getId(), mFile);
 
         updateRecipe(dto);
     }

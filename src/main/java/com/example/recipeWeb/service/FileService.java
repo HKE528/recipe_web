@@ -65,22 +65,22 @@ public class FileService {
         return fullName;
     }
 
-//    public boolean deleteFile(String username, Long recipeId) {
-//        boolean isDelete = false;
-//
-//        String filepath = findFile(username, recipeId);
-//
-//        File file = new File(filepath);
-//        if(!file.exists()) {
-//            isDelete = file.delete();
-//        }
-//
-//        return isDelete;
-//    }
+    public boolean deleteFile(String username, Long recipeId) {
+        boolean isDelete = false;
+
+        String filename = findFile(username, recipeId);
+        String filepath = path + username + "/" + filename;
+
+        File file = new File(filepath);
+        if(file.exists()) {
+            isDelete = file.delete();
+        }
+
+        return isDelete;
+    }
 
     public void updateFile(String username, Long recipeId, MultipartFile mFile) {
-//        if(deleteFile(username, recipeId)) {
-        if(true) {
+        if(deleteFile(username, recipeId)) {
             saveFile(username, recipeId, mFile);
         }
     }
