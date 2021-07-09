@@ -58,7 +58,7 @@
                         <button th:if="${dest == 'my'}" class="btn btn-primary" th:onclick="|location.href='@{/recipe/my/{selected} (selected=${selected})}'|"> 확인 </button>
                         <button th:unless="${dest == 'my'}" class="btn btn-primary" th:onclick="history.back();"> 확인 </button>
                         <a href="#" th:href="@{/recipe/my/edit/{id} (id=${recipe.id})}" class="btn btn-secondary mx-2"
-                           th:if="${#authentication.name == recipe.name}"> 수정 </a>
+                           th:if="${#authentication.name == recipe.username}"> 수정 </a>
                     </div>
                 </div>
             </div>

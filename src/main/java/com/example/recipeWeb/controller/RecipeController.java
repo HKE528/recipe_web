@@ -103,7 +103,11 @@ public class RecipeController {
     }
 
     @PostMapping("/my/edit/{id}")
-    public String edit(@PathVariable("id") Long id, RecipeDTO dto,  @RequestPart(value = "file", required = false) MultipartFile file) {
+    public String edit(@PathVariable("id") Long id, RecipeDTO dto, Principal principal,
+                       @RequestPart(value = "file", required = false) MultipartFile file) {
+
+        dto.setUsername(principal.getName());
+
         recipeService.updateRecipe(dto, file);
 
         return "redirect:/recipe/my/view/" + id;

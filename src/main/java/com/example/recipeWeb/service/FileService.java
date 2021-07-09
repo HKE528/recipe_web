@@ -80,8 +80,7 @@ public class FileService {
     }
 
     public void updateFile(String username, Long recipeId, MultipartFile mFile) {
-        if(deleteFile(username, recipeId)) {
-            saveFile(username, recipeId, mFile);
-        }
+        //deleteFile(username, recipeId);
+        saveFile(username, recipeId, mFile);
     }
 }

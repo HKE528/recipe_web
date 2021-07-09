@@ -112,7 +112,11 @@ public class RecipeService {
     }
 
     public void updateRecipe(RecipeDTO dto, MultipartFile mFile) {
-        fileService.updateFile(dto.getUsername(), dto.getId(), mFile);
+        if(mFile != null) {
+            fileService.updateFile(dto.getUsername(), dto.getId(), mFile);
+
+            System.out.println("do update image");
+        }
 
         updateRecipe(dto);
     }
