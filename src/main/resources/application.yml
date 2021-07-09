@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/recipeWeb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/RecipeStore
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
 
   servlet:
     multipart:
